@@ -1,5 +1,7 @@
 import React, { useEffect, useMemo, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { decodeToHex } from "../../lib/decode";
+import { nip19 } from "nostr-tools";
 import { COMMON_RELAYS, DEFAULT_PRIMARY } from "../../lib/relays";
 import { pool, eventStore } from "../../lib/applesauce";
 import { onlyEvents } from "applesauce-relay";
@@ -9,10 +11,12 @@ import { mapEventsToStore } from "applesauce-core";
 import { useSevenDayTimeline } from "./useSevenDayTimeline";
 import EventCard from "../../components/EventCard/EventCard";
 import { useObservableMemo } from "applesauce-react/hooks";
+import BuildSongForm from "../../components/BuildSongForm";
 
-type Props = { initialHex?: string };
+type Props = { initialHex?: string; showBuildSongForm?: boolean };
 
-export default function SevenDays({ initialHex }: Props) {
+export default function SevenDays({ initialHex, showBuildSongForm }: Props) {
+  const navigate = useNavigate();
   const [input, setInput] = useState("");
   const [hex, setHex] = useState<string | undefined>(initialHex);
   const [activeRelays, setActiveRelays] = useState<string[]>([DEFAULT_PRIMARY]);
@@ -95,16 +99,15 @@ export default function SevenDays({ initialHex }: Props) {
       setError("Please enter a valid npub or 64-char hex pubkey.");
       return;
     }
-
-    setLoading(true);
-    setHex(decoded);
-
-    const now = Math.floor(Date.now() / 1000);
-    setSinceTs(now - 7 * 24 * 60 * 60);
-
-    discoverRelays(decoded);
-    setTimeout(() => setLoading(false), 100);
+    try {
+      // Route to /npub... to enable deep-link mode
+      const npub = nip19.npubEncode(decoded);
+      navigate(`/${npub}`);
+    } catch (e) {
+      setError("Failed to encode npub.");
+    }
   }
+
 
   return (
     <div className="max-w-md mx-auto p-4">
@@ -131,6 +134,9 @@ export default function SevenDays({ initialHex }: Props) {
           {error && <div className="text-error text-sm">{error}</div>}
         </div>
       )}
+
+      {/* Build Song form appears above the events stream when requested (e.g., /npub...) */}
+      {showBuildSongForm && <BuildSongForm />}
 
       <div className="flex flex-col gap-2">
         {!timeline?.length && <div className="opacity-70">No events loaded.</div>}
