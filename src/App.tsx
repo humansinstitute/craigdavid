@@ -12,7 +12,7 @@ function DeepLinkRouter() {
     const decoded = nip19.decode(id);
     switch (decoded.type) {
       case "npub":
-        return <SevenDays initialHex={decoded.data as string} />;
+        return <SevenDays initialHex={decoded.data as string}  showBuildSongForm />;
       case "nprofile":
         return <SevenDays initialHex={(decoded.data as any).pubkey as string} />;
       case "note":
