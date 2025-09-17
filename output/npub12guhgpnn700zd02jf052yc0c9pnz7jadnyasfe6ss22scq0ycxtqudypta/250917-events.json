@@ -7,5 +7,14 @@
     "pubkey": "5239740673f3de26bd524be8a261f828662f4bad993b04e75082950c01e4c196",
     "sig": "05e63a3ec7ecbb7f96a5fd1e0c29dcbed017a409c151aa55e72f8a340dd2bc63662ab29ab68309b8f32b1e34ce19f3f0b25c75272a95f991452baabc109458c9",
     "tags": []
+  },
+  {
+    "content": "A customer context VM client talking to a customer context vm server - now we’re getting somewhere!\nhttps://blossom.primal.net/bdc29fd680457bfd73cd952f5fd9004ac8d5b3120b506492beaff9dd227058ef.png\nhttps://blossom.primal.net/77d1b22fad2497ed64709ec469bbdafe4b69b9043e0fa96be9f06f69b427cd8e.jpg",
+    "created_at": 1758117722,
+    "id": "65acf6c4150c8850c7b7dc24546d5b8665f65eadcd7866f8301c59a18447cd24",
+    "kind": 1,
+    "pubkey": "5239740673f3de26bd524be8a261f828662f4bad993b04e75082950c01e4c196",
+    "sig": "d10aaee4a50c5727b00ab07ecab329be81b483db37a0385ddd2aea3093e40dd4fbfa3624d1a7ca0a61f37b22d512deba8f518760a07498e4868842fe21c81472",
+    "tags": []
   }
 ]
