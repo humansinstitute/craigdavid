@@ -16,12 +16,7 @@ const indexFile = path.join(buildDir, 'index.html');
 
 app.disable('x-powered-by');
 
-app.use('/assets', express.static(path.join(buildDir, 'assets'), { immutable: true, maxAge: '1y' }));
-app.use(express.static(buildDir, { index: false, fallthrough: true, maxAge: '1h' }));
-
-app.get('/healthz', (_req, res) => res.status(200).send('ok'));
-
-// API: export currently displayed events to output/<npub>/events.json
+// API: export events by day into output/<npub>/<YYMMDD>-events.json
 app.post('/api/export-events', (req, res) => {
   try {
     const { npub, events } = req.body || {};
@@ -31,18 +26,57 @@ app.post('/api/export-events', (req, res) => {
     if (!Array.isArray(events)) {
       return res.status(400).json({ error: 'Invalid events array' });
     }
+
     const outDir = path.join(__dirname, 'output', npub);
-    const outFile = path.join(outDir, 'events.json');
     fs.mkdirSync(outDir, { recursive: true });
-    fs.writeFileSync(outFile, JSON.stringify(events, null, 2), 'utf8');
-    return res.json({ ok: true, path: outFile });
+
+    // Group events by UTC day (YYMMDD) based on created_at
+    const buckets = new Map(); // key -> array
+    for (const e of events) {
+      const t = e && e.created_at;
+      const tn = typeof t === 'number' ? t : (typeof t === 'string' ? Number(t) : NaN);
+      if (!Number.isFinite(tn)) continue; // skip invalid
+      const d = new Date(tn * 1000);
+      const y = String(d.getUTCFullYear()).slice(-2);
+      const m = String(d.getUTCMonth() + 1).padStart(2, '0');
+      const day = String(d.getUTCDate()).padStart(2, '0');
+      const key = `${y}${m}${day}`;
+      if (!buckets.has(key)) buckets.set(key, []);
+      buckets.get(key).push(e);
+    }
+
+    // Write each bucket to <YYMMDD>-events.json
+    const written = [];
+    for (const [key, list] of buckets) {
+      // Sort by created_at ascending for determinism
+      list.sort((a, b) => {
+        const ta = Number(a?.created_at) || 0;
+        const tb = Number(b?.created_at) || 0;
+        return ta - tb;
+      });
+      const outFile = path.join(outDir, `${key}-events.json`);
+      fs.writeFileSync(outFile, JSON.stringify(list, null, 2), 'utf8');
+      written.push({ file: outFile, count: list.length, day: key });
+    }
+
+    // Back-compat: include `path` of first file if present
+    const pathCompat = written.length ? written[0].file : null;
+
+    return res.json({ ok: true, files: written, path: pathCompat });
   } catch (e) {
     console.error('export-events failed', e);
     return res.status(500).json({ error: 'Failed to export events' });
   }
 });
 
-// API: summary of events (from body or file)
+app.use('/assets', express.static(path.join(buildDir, 'assets'), { immutable: true, maxAge: '1y' }));
+app.use(express.static(buildDir, { index: false, fallthrough: true, maxAge: '1h' }));
+
+app.get('/healthz', (_req, res) => res.status(200).send('ok'));
+
+
+
+// API: summary of events (from body or daily files)
 app.post('/api/summary', (req, res) => {
   try {
     const { user, events } = req.body || {};
@@ -51,8 +85,24 @@ app.post('/api/summary', (req, res) => {
     }
     let list = Array.isArray(events) ? events : (() => {
       try {
-        const p = path.join(__dirname, 'output', user, 'events.json');
-        return fs.existsSync(p) ? JSON.parse(fs.readFileSync(p, 'utf8')) : [];
+        const dir = path.join(__dirname, 'output', user);
+        const daily = fs.existsSync(dir)
+          ? fs.readdirSync(dir).filter(f => /^\d{6}-events\.json$/.test(f)).sort()
+          : [];
+        if (daily.length > 0) {
+          const all = [];
+          for (const f of daily) {
+            try {
+              const p = path.join(dir, f);
+              const part = JSON.parse(fs.readFileSync(p, 'utf8'));
+              if (Array.isArray(part)) all.push(...part);
+            } catch {}
+          }
+          return all;
+        }
+        // Fallback to legacy single file
+        const legacy = path.join(dir, 'events.json');
+        return fs.existsSync(legacy) ? JSON.parse(fs.readFileSync(legacy, 'utf8')) : [];
       } catch {
         return [];
       }
