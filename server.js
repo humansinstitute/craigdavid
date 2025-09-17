@@ -62,10 +62,31 @@ app.post('/api/export-events', (req, res) => {
       written.push({ file: outFile, count: list.length, day: key });
     }
 
+    // After export: read each JSON file, log concatenated content text, and write just_text.json
+    const justText = [];
+    for (const w of written) {
+      try {
+        const raw = fs.readFileSync(w.file, 'utf8');
+        const arr = JSON.parse(raw);
+        const texts = Array.isArray(arr)
+          ? arr.map(e => (typeof e?.content === 'string' ? e.content.trim() : ''))
+               .filter(s => s.length > 0)
+          : [];
+        const normalized = texts.map(t => /[.!?]$/.test(t) ? t : t + '.');
+        const joined = normalized.join(' ');
+        console.log(`[just_text] ${path.basename(w.file)} -> ${joined}`);
+        justText.push({ filename: path.basename(w.file), content: joined });
+      } catch (e) {
+        console.warn('Failed to build just_text for', w.file, e);
+      }
+    }
+    const justTextPath = path.join(outDir, 'just_text.json');
+    fs.writeFileSync(justTextPath, JSON.stringify(justText, null, 2), 'utf8');
+
     // Back-compat: include `path` of first file if present
     const pathCompat = written.length ? written[0].file : null;
 
-    return res.json({ ok: true, files: written, path: pathCompat });
+    return res.json({ ok: true, files: written, path: pathCompat, just_text_path: justTextPath, just_text_count: justText.length });
   } catch (e) {
     console.error('export-events failed', e);
     return res.status(500).json({ error: 'Failed to export events' });
