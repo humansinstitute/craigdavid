@@ -17,7 +17,7 @@ const indexFile = path.join(buildDir, 'index.html');
 app.disable('x-powered-by');
 
 // API: export events by day into output/<npub>/<YYMMDD>-events.json
-app.post('/api/export-events', (req, res) => {
+app.post('/api/export-events', async (req, res) => {
   try {
     const { npub, events } = req.body || {};
     if (typeof npub !== 'string' || !/^npub1[0-9a-z]+$/.test(npub)) {
@@ -83,10 +83,30 @@ app.post('/api/export-events', (req, res) => {
     const justTextPath = path.join(outDir, 'just_text.json');
     fs.writeFileSync(justTextPath, JSON.stringify(justText, null, 2), 'utf8');
 
+    // New: call Context VM for each day with joined text
+    const vmResults = [];
+    const { withCraigDavid } = await import(path.join(__dirname, 'context_vm.ts'));
+    for (const jt of justText) {
+      const question = `Please analyse and summarize the following daily content for ${npub} (day ${jt.filename.replace('-events.json','')}): ${jt.content}`;
+      try {
+        const vmResp = await withCraigDavid(async (c) => {
+          const result: any = await c.callTool('funny_agent', { question });
+          const text = result?.content?.[0]?.text || JSON.stringify(result);
+          return text;
+        });
+        vmResults.push({ dayFile: jt.filename, response: vmResp });
+      } catch (e) {
+        console.warn('Context VM call failed for', jt.filename, e);
+        vmResults.push({ dayFile: jt.filename, error: String(e) });
+      }
+    }
+    const vmOutPath = path.join(outDir, 'vm_results.json');
+    fs.writeFileSync(vmOutPath, JSON.stringify(vmResults, null, 2), 'utf8');
+
     // Back-compat: include `path` of first file if present
     const pathCompat = written.length ? written[0].file : null;
 
-    return res.json({ ok: true, files: written, path: pathCompat, just_text_path: justTextPath, just_text_count: justText.length });
+    return res.json({ ok: true, files: written, path: pathCompat, just_text_path: justTextPath, just_text_count: justText.length, vm_results_path: vmOutPath, vm_results_count: vmResults.length });
   } catch (e) {
     console.error('export-events failed', e);
     return res.status(500).json({ error: 'Failed to export events' });
