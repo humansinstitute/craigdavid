@@ -1,0 +1,159 @@
+[
+  {
+    "content": "Creating a new feature PRD in wingman for this weeks demo. \nhttps://blossom.primal.net/ee9dd3f186450c7758c949c538bf8b9fd25555206296286e43933dca7b326d17.mp4",
+    "created_at": 1758021323,
+    "id": "d584364ac6075083bdb3767f5bb9334d309587f1df4294d79ca8251d672e5cef",
+    "kind": 1,
+    "pubkey": "5239740673f3de26bd524be8a261f828662f4bad993b04e75082950c01e4c196",
+    "sig": "c86f66fdc924e9355803316d8afaf520aa252fb51e932abb8acf4e576fae8fb336c6dd3ecfba067d67c91503d46e433f394598423f6e8223743b3688fb01b6d6",
+    "tags": []
+  },
+  {
+    "content": "Dictating updates to the PRD\nhttps://blossom.primal.net/8488aea794151df9269859fad95d84d7b7090e29ba28bb29b70dddcc7af383c7.mp4",
+    "created_at": 1758021416,
+    "id": "872279193396b0451ae1af300cc173e241174c13c4f67ca27a168608e3e79d2d",
+    "kind": 1,
+    "pubkey": "5239740673f3de26bd524be8a261f828662f4bad993b04e75082950c01e4c196",
+    "sig": "311be8fe007e9a929d0c7333d0d6b205b8f6daedfc4fc2549665480ee8f773ce4b3310cab228d9f40726696701fba9e30cc8849e4f781810b10fc02bb11dfad2",
+    "tags": [
+      [
+        "e",
+        "d584364ac6075083bdb3767f5bb9334d309587f1df4294d79ca8251d672e5cef",
+        "",
+        "root"
+      ]
+    ]
+  },
+  {
+    "content": "After review we turn the PRD into a structured set of work packages for a developer sub agent to implement \nhttps://blossom.primal.net/374715a1fedda2cc96b0d413fb2280921a66c3858356d6c1aa49a168a2e768a1.mp4",
+    "created_at": 1758021544,
+    "id": "ecd5c53d2aa2e0a919b8eb8451d3ad46c10015b203d1d8e8d478c79de82047f8",
+    "kind": 1,
+    "pubkey": "5239740673f3de26bd524be8a261f828662f4bad993b04e75082950c01e4c196",
+    "sig": "35684e5f7b9bbc87c51efb85f862bcd258bab67beb3daf3ff160de9205e3549d56d9a7b607fc7ff0fe81190ea66ce4b4a1599581108b111b6fd070e02557a6da",
+    "tags": [
+      [
+        "e",
+        "d584364ac6075083bdb3767f5bb9334d309587f1df4294d79ca8251d672e5cef",
+        "",
+        "root"
+      ]
+    ]
+  },
+  {
+    "content": "We can review all of the docs in obsidian before we implement anything \nhttps://blossom.primal.net/2a65a66b4eaa07fc70dae94b91d41f8051a9f76e4d2f227674fcfac3f873775a.mp4",
+    "created_at": 1758021649,
+    "id": "7119f5b09353cf82cb77723ff71b54cd9c47a101e2738f0f9f4f55039154a44d",
+    "kind": 1,
+    "pubkey": "5239740673f3de26bd524be8a261f828662f4bad993b04e75082950c01e4c196",
+    "sig": "e6f5ecf9844c9933e612643717549ed86f7e47e7a1f1d7dad57852b5bcdb0946d9aafbf7f06c990d198e783172c5ed90cee6852a153517392a84d4038204f4b9",
+    "tags": [
+      [
+        "e",
+        "d584364ac6075083bdb3767f5bb9334d309587f1df4294d79ca8251d672e5cef",
+        "",
+        "root"
+      ]
+    ]
+  },
+  {
+    "content": "Then we just tell it to implement with sub agent\nhttps://blossom.primal.net/21acc4929a7a9a56f7b957e31988944c987f8ece508300938aa2bfc46101edd7.png",
+    "created_at": 1758021695,
+    "id": "c333b696f927f1eacaf584c37b9b6b031e04bf95ee1e9057d199383c4edce832",
+    "kind": 1,
+    "pubkey": "5239740673f3de26bd524be8a261f828662f4bad993b04e75082950c01e4c196",
+    "sig": "9cafc07bd20a4b88b5afd1246ff36dfd2450df142b8ee80901f89a24d86e87d0cb23fd663e12d1b7e40f467f60607ac96a3da19262fc8b743663d4fc951780af",
+    "tags": [
+      [
+        "e",
+        "d584364ac6075083bdb3767f5bb9334d309587f1df4294d79ca8251d672e5cef",
+        "",
+        "root"
+      ]
+    ]
+  },
+  {
+    "content": "Not the simplest test for mobile - let’s have a look if we can simplify it\n\n\nhttps://blossom.primal.net/1d64f833cc7504b7472084c2e7f3f65d978004dab4d0cb1cd17dfc70d267ccd6.png",
+    "created_at": 1758021992,
+    "id": "0ba55c8f2a3767ebf63c7621980760384afb3e6acdd5ef1752fa23a9a4d3409f",
+    "kind": 1,
+    "pubkey": "5239740673f3de26bd524be8a261f828662f4bad993b04e75082950c01e4c196",
+    "sig": "2e270daa65aad102cff494384f92cf5b77c8f51c6857862d25376eb536e071a2861da558922f74be7af769eb90376f1afeebc65f8317ac9a0f899cf3286cd398",
+    "tags": [
+      [
+        "e",
+        "d584364ac6075083bdb3767f5bb9334d309587f1df4294d79ca8251d672e5cef",
+        "",
+        "root"
+      ]
+    ]
+  },
+  {
+    "content": "Just realised he created the code in the obsidian vault not the source directory 🤣\n\nOne step forward… two steps back\nhttps://blossom.primal.net/44894ac56525b1a5025a4c7b3f5bfe3b80fe4b19deba51c40ee0f335815baed6.png",
+    "created_at": 1758022458,
+    "id": "a4d54e1d2043d998dc2ee961e8641b60dda8a575e23beee6d3060861766123cf",
+    "kind": 1,
+    "pubkey": "5239740673f3de26bd524be8a261f828662f4bad993b04e75082950c01e4c196",
+    "sig": "a38543daf1b6e16f54d6048b2a356db5f869106aee237ea6f738205ee6d1afd8fe2ccd2cadef94f1d78a8630b7730ca87ed9a5ad059c6b503e4c0e3a956be8bc",
+    "tags": [
+      [
+        "e",
+        "d584364ac6075083bdb3767f5bb9334d309587f1df4294d79ca8251d672e5cef",
+        "",
+        "root"
+      ]
+    ]
+  },
+  {
+    "content": "Quick update tot the recipe!\nhttps://blossom.primal.net/8d0bf049b6a922ba430769bbf7283d23a8448955b61281cb98b91d71e17c0f21.png",
+    "created_at": 1758022682,
+    "id": "6e1c0eca0a1fa5699e502f136f0178645a3485f1342f5b0333c555367a004c37",
+    "kind": 1,
+    "pubkey": "5239740673f3de26bd524be8a261f828662f4bad993b04e75082950c01e4c196",
+    "sig": "7516c9cd0c2a9a69e0361d54c015d2c241aae3843f40c967d3e57b5bce8c1d1a14374e13d4aec9ed1159dc6c78ff7650e778c28c8e17fa250024d37736aabe85",
+    "tags": [
+      [
+        "e",
+        "d584364ac6075083bdb3767f5bb9334d309587f1df4294d79ca8251d672e5cef",
+        "",
+        "root"
+      ]
+    ]
+  },
+  {
+    "content": "Hmmmm \nhttps://blossom.primal.net/4231aa47a706e2a8b7e164cb9f6d08d78aed77108ec530e9e24e7bd81d876b50.mp4",
+    "created_at": 1758024263,
+    "id": "f896a92bc16a13be8d405e5180f0e335e266b078fb234c0ae636b7e64e5390f2",
+    "kind": 1,
+    "pubkey": "5239740673f3de26bd524be8a261f828662f4bad993b04e75082950c01e4c196",
+    "sig": "d2b2998ef2fc62f6c32823aa4e982306abca9c707ebd4b03705a79796b9491a8dc42ae4955cb9ca8f07994be6c8715bc440fe957a4d8dacb1a81954a0b460a27",
+    "tags": []
+  },
+  {
+    "content": "I got stuck in nano on my phone because I didn’t have key bindings to get out 🤣",
+    "created_at": 1758024897,
+    "id": "3ee43ac3297e79937c3cf710f6e8b676d0b357a4cd014bde178b96103992e92f",
+    "kind": 1,
+    "pubkey": "5239740673f3de26bd524be8a261f828662f4bad993b04e75082950c01e4c196",
+    "sig": "65f03f559b9bbdf047773e5ce9bab5421031a5364826741baff064745c35051c247d3b07de318d3755716715b02bc7fe7510becca6303bdca388d2b130b029d7",
+    "tags": []
+  },
+  {
+    "content": "Daily vibe code\n\nhttps://blossom.primal.net/cab2b66f3a29b598b145971cdcf79a67a7713e803d59fa1e4192914d31c14797.jpg",
+    "created_at": 1758042707,
+    "id": "d21e03e104f4e02193ba12d4c38bf74ea443bcb774d31d7279153b6c4f07173a",
+    "kind": 1,
+    "pubkey": "5239740673f3de26bd524be8a261f828662f4bad993b04e75082950c01e4c196",
+    "sig": "6dacedcd2d6159a3ecd8421e8c72fa424291e0f4f816f8de4c60e76f569d6d716ca322f6093a7b45a6880053a66666e56b5acaa345a3320bd50c3c5341c49c78",
+    "tags": []
+  },
+  {
+    "content": "New recipe adjustment had landed\nhttps://blossom.primal.net/6203cff559e2aa84d482a79c34f41b494049943ea2f3fa0d201bd1b707684312.png",
+    "created_at": 1758051975,
+    "id": "bd812d7f4817116ea77093992e181db4d0bef5c9916d7894570b08cbf81bafe8",
+    "kind": 1,
+    "pubkey": "5239740673f3de26bd524be8a261f828662f4bad993b04e75082950c01e4c196",
+    "sig": "986d895ab5bd9de37c112b4794f549a5905ce70097873346828e00416217d5d3397d3bc9d83b59d4d9065fe511b5f976ecefb0354faa3826279fb6780680e29c",
+    "tags": []
+  }
+]

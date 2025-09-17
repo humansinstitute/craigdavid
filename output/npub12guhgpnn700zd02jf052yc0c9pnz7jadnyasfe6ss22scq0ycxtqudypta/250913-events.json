@@ -1,380 +1,11 @@
 [
   {
-    "content": "New recipe adjustment had landed\nhttps://blossom.primal.net/6203cff559e2aa84d482a79c34f41b494049943ea2f3fa0d201bd1b707684312.png",
-    "created_at": 1758051975,
-    "id": "bd812d7f4817116ea77093992e181db4d0bef5c9916d7894570b08cbf81bafe8",
+    "content": "Sec-05 Wk3: Goal an entire demo developed and delivered only over a phone or a daylight tablet. \n\nLargely working outside. Agent led, full Yolo mode. \n\nThis account will track work throughout the week. ",
+    "created_at": 1757754348,
+    "id": "2191a38b4e8b6f4abfa03adbf15d91ba1d4f32758ede2566f53e839f90c68ff2",
     "kind": 1,
     "pubkey": "5239740673f3de26bd524be8a261f828662f4bad993b04e75082950c01e4c196",
-    "sig": "986d895ab5bd9de37c112b4794f549a5905ce70097873346828e00416217d5d3397d3bc9d83b59d4d9065fe511b5f976ecefb0354faa3826279fb6780680e29c",
-    "tags": []
-  },
-  {
-    "content": "Daily vibe code\n\nhttps://blossom.primal.net/cab2b66f3a29b598b145971cdcf79a67a7713e803d59fa1e4192914d31c14797.jpg",
-    "created_at": 1758042707,
-    "id": "d21e03e104f4e02193ba12d4c38bf74ea443bcb774d31d7279153b6c4f07173a",
-    "kind": 1,
-    "pubkey": "5239740673f3de26bd524be8a261f828662f4bad993b04e75082950c01e4c196",
-    "sig": "6dacedcd2d6159a3ecd8421e8c72fa424291e0f4f816f8de4c60e76f569d6d716ca322f6093a7b45a6880053a66666e56b5acaa345a3320bd50c3c5341c49c78",
-    "tags": []
-  },
-  {
-    "content": "I got stuck in nano on my phone because I didn’t have key bindings to get out 🤣",
-    "created_at": 1758024897,
-    "id": "3ee43ac3297e79937c3cf710f6e8b676d0b357a4cd014bde178b96103992e92f",
-    "kind": 1,
-    "pubkey": "5239740673f3de26bd524be8a261f828662f4bad993b04e75082950c01e4c196",
-    "sig": "65f03f559b9bbdf047773e5ce9bab5421031a5364826741baff064745c35051c247d3b07de318d3755716715b02bc7fe7510becca6303bdca388d2b130b029d7",
-    "tags": []
-  },
-  {
-    "content": "Hmmmm \nhttps://blossom.primal.net/4231aa47a706e2a8b7e164cb9f6d08d78aed77108ec530e9e24e7bd81d876b50.mp4",
-    "created_at": 1758024263,
-    "id": "f896a92bc16a13be8d405e5180f0e335e266b078fb234c0ae636b7e64e5390f2",
-    "kind": 1,
-    "pubkey": "5239740673f3de26bd524be8a261f828662f4bad993b04e75082950c01e4c196",
-    "sig": "d2b2998ef2fc62f6c32823aa4e982306abca9c707ebd4b03705a79796b9491a8dc42ae4955cb9ca8f07994be6c8715bc440fe957a4d8dacb1a81954a0b460a27",
-    "tags": []
-  },
-  {
-    "content": "Quick update tot the recipe!\nhttps://blossom.primal.net/8d0bf049b6a922ba430769bbf7283d23a8448955b61281cb98b91d71e17c0f21.png",
-    "created_at": 1758022682,
-    "id": "6e1c0eca0a1fa5699e502f136f0178645a3485f1342f5b0333c555367a004c37",
-    "kind": 1,
-    "pubkey": "5239740673f3de26bd524be8a261f828662f4bad993b04e75082950c01e4c196",
-    "sig": "7516c9cd0c2a9a69e0361d54c015d2c241aae3843f40c967d3e57b5bce8c1d1a14374e13d4aec9ed1159dc6c78ff7650e778c28c8e17fa250024d37736aabe85",
-    "tags": [
-      [
-        "e",
-        "d584364ac6075083bdb3767f5bb9334d309587f1df4294d79ca8251d672e5cef",
-        "",
-        "root"
-      ]
-    ]
-  },
-  {
-    "content": "Just realised he created the code in the obsidian vault not the source directory 🤣\n\nOne step forward… two steps back\nhttps://blossom.primal.net/44894ac56525b1a5025a4c7b3f5bfe3b80fe4b19deba51c40ee0f335815baed6.png",
-    "created_at": 1758022458,
-    "id": "a4d54e1d2043d998dc2ee961e8641b60dda8a575e23beee6d3060861766123cf",
-    "kind": 1,
-    "pubkey": "5239740673f3de26bd524be8a261f828662f4bad993b04e75082950c01e4c196",
-    "sig": "a38543daf1b6e16f54d6048b2a356db5f869106aee237ea6f738205ee6d1afd8fe2ccd2cadef94f1d78a8630b7730ca87ed9a5ad059c6b503e4c0e3a956be8bc",
-    "tags": [
-      [
-        "e",
-        "d584364ac6075083bdb3767f5bb9334d309587f1df4294d79ca8251d672e5cef",
-        "",
-        "root"
-      ]
-    ]
-  },
-  {
-    "content": "Not the simplest test for mobile - let’s have a look if we can simplify it\n\n\nhttps://blossom.primal.net/1d64f833cc7504b7472084c2e7f3f65d978004dab4d0cb1cd17dfc70d267ccd6.png",
-    "created_at": 1758021992,
-    "id": "0ba55c8f2a3767ebf63c7621980760384afb3e6acdd5ef1752fa23a9a4d3409f",
-    "kind": 1,
-    "pubkey": "5239740673f3de26bd524be8a261f828662f4bad993b04e75082950c01e4c196",
-    "sig": "2e270daa65aad102cff494384f92cf5b77c8f51c6857862d25376eb536e071a2861da558922f74be7af769eb90376f1afeebc65f8317ac9a0f899cf3286cd398",
-    "tags": [
-      [
-        "e",
-        "d584364ac6075083bdb3767f5bb9334d309587f1df4294d79ca8251d672e5cef",
-        "",
-        "root"
-      ]
-    ]
-  },
-  {
-    "content": "Then we just tell it to implement with sub agent\nhttps://blossom.primal.net/21acc4929a7a9a56f7b957e31988944c987f8ece508300938aa2bfc46101edd7.png",
-    "created_at": 1758021695,
-    "id": "c333b696f927f1eacaf584c37b9b6b031e04bf95ee1e9057d199383c4edce832",
-    "kind": 1,
-    "pubkey": "5239740673f3de26bd524be8a261f828662f4bad993b04e75082950c01e4c196",
-    "sig": "9cafc07bd20a4b88b5afd1246ff36dfd2450df142b8ee80901f89a24d86e87d0cb23fd663e12d1b7e40f467f60607ac96a3da19262fc8b743663d4fc951780af",
-    "tags": [
-      [
-        "e",
-        "d584364ac6075083bdb3767f5bb9334d309587f1df4294d79ca8251d672e5cef",
-        "",
-        "root"
-      ]
-    ]
-  },
-  {
-    "content": "We can review all of the docs in obsidian before we implement anything \nhttps://blossom.primal.net/2a65a66b4eaa07fc70dae94b91d41f8051a9f76e4d2f227674fcfac3f873775a.mp4",
-    "created_at": 1758021649,
-    "id": "7119f5b09353cf82cb77723ff71b54cd9c47a101e2738f0f9f4f55039154a44d",
-    "kind": 1,
-    "pubkey": "5239740673f3de26bd524be8a261f828662f4bad993b04e75082950c01e4c196",
-    "sig": "e6f5ecf9844c9933e612643717549ed86f7e47e7a1f1d7dad57852b5bcdb0946d9aafbf7f06c990d198e783172c5ed90cee6852a153517392a84d4038204f4b9",
-    "tags": [
-      [
-        "e",
-        "d584364ac6075083bdb3767f5bb9334d309587f1df4294d79ca8251d672e5cef",
-        "",
-        "root"
-      ]
-    ]
-  },
-  {
-    "content": "After review we turn the PRD into a structured set of work packages for a developer sub agent to implement \nhttps://blossom.primal.net/374715a1fedda2cc96b0d413fb2280921a66c3858356d6c1aa49a168a2e768a1.mp4",
-    "created_at": 1758021544,
-    "id": "ecd5c53d2aa2e0a919b8eb8451d3ad46c10015b203d1d8e8d478c79de82047f8",
-    "kind": 1,
-    "pubkey": "5239740673f3de26bd524be8a261f828662f4bad993b04e75082950c01e4c196",
-    "sig": "35684e5f7b9bbc87c51efb85f862bcd258bab67beb3daf3ff160de9205e3549d56d9a7b607fc7ff0fe81190ea66ce4b4a1599581108b111b6fd070e02557a6da",
-    "tags": [
-      [
-        "e",
-        "d584364ac6075083bdb3767f5bb9334d309587f1df4294d79ca8251d672e5cef",
-        "",
-        "root"
-      ]
-    ]
-  },
-  {
-    "content": "Dictating updates to the PRD\nhttps://blossom.primal.net/8488aea794151df9269859fad95d84d7b7090e29ba28bb29b70dddcc7af383c7.mp4",
-    "created_at": 1758021416,
-    "id": "872279193396b0451ae1af300cc173e241174c13c4f67ca27a168608e3e79d2d",
-    "kind": 1,
-    "pubkey": "5239740673f3de26bd524be8a261f828662f4bad993b04e75082950c01e4c196",
-    "sig": "311be8fe007e9a929d0c7333d0d6b205b8f6daedfc4fc2549665480ee8f773ce4b3310cab228d9f40726696701fba9e30cc8849e4f781810b10fc02bb11dfad2",
-    "tags": [
-      [
-        "e",
-        "d584364ac6075083bdb3767f5bb9334d309587f1df4294d79ca8251d672e5cef",
-        "",
-        "root"
-      ]
-    ]
-  },
-  {
-    "content": "Creating a new feature PRD in wingman for this weeks demo. \nhttps://blossom.primal.net/ee9dd3f186450c7758c949c538bf8b9fd25555206296286e43933dca7b326d17.mp4",
-    "created_at": 1758021323,
-    "id": "d584364ac6075083bdb3767f5bb9334d309587f1df4294d79ca8251d672e5cef",
-    "kind": 1,
-    "pubkey": "5239740673f3de26bd524be8a261f828662f4bad993b04e75082950c01e4c196",
-    "sig": "c86f66fdc924e9355803316d8afaf520aa252fb51e932abb8acf4e576fae8fb336c6dd3ecfba067d67c91503d46e433f394598423f6e8223743b3688fb01b6d6",
-    "tags": []
-  },
-  {
-    "content": "Now we’re cooking :)\nhttps://blossom.primal.net/b7027577c9a6a8a1c0b75255e60f367119496823ead59aec55c1f9c353724cfb.png",
-    "created_at": 1757939201,
-    "id": "9c2d06d7bd11ef157603e511f50d6179dd7ea806b8db0ec74b7d4dd88465abe1",
-    "kind": 1,
-    "pubkey": "5239740673f3de26bd524be8a261f828662f4bad993b04e75082950c01e4c196",
-    "sig": "ed738f6394605a02d51f2c81ad3b08cd7d5b771f45f1677e12e372d2c1f1395f15c71c0c5c6ca5943eb487c021b68e4524eb3077132036c35cca5c1448a697c7",
-    "tags": []
-  },
-  {
-    "content": "The fix!\nhttps://blossom.primal.net/828c879d347fce611c98545298d83f3c528e8e2b0b09e977af771a0d8aa8d0be.png",
-    "created_at": 1757939159,
-    "id": "931812918ab8d1a1e6bb47a7d400df958ec323876d088e9089a35f5eb4f285d3",
-    "kind": 1,
-    "pubkey": "5239740673f3de26bd524be8a261f828662f4bad993b04e75082950c01e4c196",
-    "sig": "db3dc7f62b555950fbd1724639a3a241b343a951942bfa1f5fef71efa353d9afaad2a06e3c0118cdaa4584b937f82d524f94eeb52209ffa78f36b1072b5e1ce4",
-    "tags": []
-  },
-  {
-    "content": "\nhttps://blossom.primal.net/41bf8e225d01ef22f2972597856cb7e2c9abb07de2db28b895f8a91e6e4b1c52.png",
-    "created_at": 1757936197,
-    "id": "02f2d1373b1dc6f96b3453038d609ae8e8de600d173580148a6cc79af9431984",
-    "kind": 1,
-    "pubkey": "5239740673f3de26bd524be8a261f828662f4bad993b04e75082950c01e4c196",
-    "sig": "ee6d26c631eab1e28b6a0c84247de6efed4b6e3aae64fe1aa177fbf9dd5b51cdd175754844a38bcaee5ca0c5c5b4ef2ada236159272e900a63e1e9e418522930",
-    "tags": [
-      [
-        "e",
-        "3df135f1e857f178f13af285c99f0768bb79ea2340d061ead49a33d45a6f66e0",
-        "wss://relay.primal.net",
-        "root"
-      ]
-    ]
-  },
-  {
-    "content": "nostr:nprofile1qqsdxpfv503a2ga3ajqxw843hws9z7302ghpj4mcmjpa6qagmp9pwrs8222jg - goose is like a dog with half a dick today",
-    "created_at": 1757935344,
-    "id": "90bab2448bfc6d89c57ca9a90ca6635777727625ccb629e1fb766a1bf0615ee4",
-    "kind": 1,
-    "pubkey": "5239740673f3de26bd524be8a261f828662f4bad993b04e75082950c01e4c196",
-    "sig": "66e418a44000f9cc39f564a751f784b15001d71e8e7545f9ba0faa319c5119865008f9a20b39848a20a783048a066e06340a6f9a07c621b8f3cfc37ee79f03b5",
-    "tags": [
-      [
-        "p",
-        "d3052ca3e3d523b1ec80671eb1bba0517a2f522e195778dc83dd03a8d84a170e",
-        ""
-      ],
-      [
-        "e",
-        "3df135f1e857f178f13af285c99f0768bb79ea2340d061ead49a33d45a6f66e0",
-        "wss://nos.lol/",
-        "root",
-        "5239740673f3de26bd524be8a261f828662f4bad993b04e75082950c01e4c196"
-      ]
-    ]
-  },
-  {
-    "content": "Sometimes… \nhttps://blossom.primal.net/4fe662172d24bb4cb597f3a824132765369793ee94032433ecb850b929575a21.png",
-    "created_at": 1757934864,
-    "id": "3df135f1e857f178f13af285c99f0768bb79ea2340d061ead49a33d45a6f66e0",
-    "kind": 1,
-    "pubkey": "5239740673f3de26bd524be8a261f828662f4bad993b04e75082950c01e4c196",
-    "sig": "29d761b077b1079d4e786275ed81c67037d03745fe3e1c3f8000641dde6d3d58d6144ab83005e173b097db37687f9ff21a527ed5b9162ef51297ff00cccba91a",
-    "tags": []
-  },
-  {
-    "content": "Ok we now have wingman working nicely with tmux to manage build scripts and deployment from the phone :)\n\n\nhttps://blossom.primal.net/32e2d37d54267695e524d5ae325f7a1e8b733fd30dd90ad785a1e2c01fb5accb.png\nhttps://blossom.primal.net/4fe7ff397f7604facfc6be07d99344dd6fc4f1091f8dae6310a311de56b4c3ba.png",
-    "created_at": 1757934835,
-    "id": "14c432b3ce894533b53fae6dbffddbe9b7d89f4a6bcc78db3636751987bbfcf4",
-    "kind": 1,
-    "pubkey": "5239740673f3de26bd524be8a261f828662f4bad993b04e75082950c01e4c196",
-    "sig": "f95023d342ed3e2d1f2842c5f7857a052c4a682786cf6fca70236f8ebc0715c10aeb833138c2344c8a2f9e68b344b2b56fe698eb7594f2789a4163a67b5e6154",
-    "tags": []
-  },
-  {
-    "content": "Not quite right but we have our first thing running just from the phone. \n\nDeployments are shit needs some thought\nhttps://blossom.primal.net/b5ca6b0032ae4936d1b42e857c5c1a337e98be199dc4a6c1e58e09fb3fac9c0e.png",
-    "created_at": 1757836113,
-    "id": "5885eed586f5c57b5df1642e3bfd91f40b7da305d7325bb7bf848f0fad5d7cbb",
-    "kind": 1,
-    "pubkey": "5239740673f3de26bd524be8a261f828662f4bad993b04e75082950c01e4c196",
-    "sig": "04a975d7706daad2926523a4ae5b5ad96793da1c50d7e4559bd7a7dd732f45b51808ae38c1adef367adabacd3af395b263f14cf99a868784161886bd8e0a4a52",
-    "tags": []
-  },
-  {
-    "content": " Back on track\nhttps://blossom.primal.net/e6ad8a272d48405ef89a03d96f03dfdc30f276670b7f8c255190c3c15b6288b4.png\nhttps://blossom.primal.net/fb61f2a95d03d13e3166609a99438ccc8bb7339cbe82d5ba5ed57f13bc58c58c.png",
-    "created_at": 1757787166,
-    "id": "f949d276671500e6d17f32cee9f2617a831e6308136609a994a180cd11996466",
-    "kind": 1,
-    "pubkey": "5239740673f3de26bd524be8a261f828662f4bad993b04e75082950c01e4c196",
-    "sig": "68f8dda5e53f61864f555ef4333ae737c5e21269dfef970f8d97c59f860ff05b251238baf84ba66d96ec4e2135dca6bc3515d47d8da56b950c274100068e28a3",
-    "tags": []
-  },
-  {
-    "content": "This might need a bit of work…\nhttps://blossom.primal.net/3f4b189d24a27c9e86bfa984d8da286e453d48324fb7e2002577ccc5d675204f.png\nhttps://blossom.primal.net/d8d9eecd57b4a38eea4dd00d3603e57927c101846bce411b872a551f74c0c01e.png",
-    "created_at": 1757786866,
-    "id": "48ad39831413dcd9126d7a5bddbe39f7e8d18d738a3553709927b87e0c5c59c6",
-    "kind": 1,
-    "pubkey": "5239740673f3de26bd524be8a261f828662f4bad993b04e75082950c01e4c196",
-    "sig": "bf2ad3a3d395cd27f7b07369bb62b8e5ff08235d4abfe2057d712a3b9a7f90d10c3a099f2212277d9d24c53180c970a8fc51fa80d6c596a1f882c95bb3415145",
-    "tags": []
-  },
-  {
-    "content": "Done :)",
-    "created_at": 1757785490,
-    "id": "03ee3e76ad4862f79ea93c039fde50fd72a549401679d677307acf97dd83cdf4",
-    "kind": 1,
-    "pubkey": "5239740673f3de26bd524be8a261f828662f4bad993b04e75082950c01e4c196",
-    "sig": "4857338b5faaf4b57146172c39133cf8bc1122e2baabd4b5cf2696c44192b1abb509cb9c163c600a3fbb881a21e95c4b711f30d2352529f5a55527c62fd55770",
-    "tags": [
-      [
-        "e",
-        "df357588c71c57bf18150db1fff7e054800fbf159e56de7ae0e4c03aad2a42f4",
-        "wss://relay.primal.net",
-        "root",
-        "5239740673f3de26bd524be8a261f828662f4bad993b04e75082950c01e4c196"
-      ],
-      [
-        "e",
-        "77255efc51177dd0793d76de59065d43f18f4470ab14784c3751884bdf751696",
-        "wss://relay.primal.net",
-        "reply"
-      ],
-      [
-        "p",
-        "d60bdad03468f5f8c85b1b10db977e310a5aafab33750dfadb37488b02bfc8d7",
-        "",
-        "mention"
-      ]
-    ]
-  },
-  {
-    "content": "Hopefully getting a first example built in applesauce. \n\nLet’s see if it can compile and get it running on my phone without needing to bust out the laptop. \nhttps://blossom.primal.net/7411630793da1ef91c18acdccbe35090b84b8aa3a56d0926c0ecf8979a78ab9b.mp4\nhttps://blossom.primal.net/3f4b189d24a27c9e86bfa984d8da286e453d48324fb7e2002577ccc5d675204f.png",
-    "created_at": 1757785061,
-    "id": "2bec87ead271a20baa822c45e9dc0a939aa97e05c7566bca6ec78121b4232134",
-    "kind": 1,
-    "pubkey": "5239740673f3de26bd524be8a261f828662f4bad993b04e75082950c01e4c196",
-    "sig": "9e6a4117715db4eb20e188ab7e0ade6b7b1b8e999b98b30586553ffa0a6946474b202cd90ac8945d5075f54971360f96977ac6c9db079c9cf65d690f6636237e",
-    "tags": []
-  },
-  {
-    "content": "Working hard, or hardly working?\nhttps://blossom.primal.net/ee63b3263217ee31be7864deca210e14f60a8a9597290932f068f3c657ddf2c1.jpg",
-    "created_at": 1757784671,
-    "id": "9d48ba28aea94a0993b8d8c39ca52aa85be5e7fcb7ea3965ea366e827b58fab7",
-    "kind": 1,
-    "pubkey": "5239740673f3de26bd524be8a261f828662f4bad993b04e75082950c01e4c196",
-    "sig": "6ee49560095e85adb9dd76e274875fbb2c8d7f4827f9010ca3241391706655d96a90cfe9010b76204d814ea9f54961263cbf29ed6407f60c9557fd4abb8d56a2",
-    "tags": []
-  },
-  {
-    "content": "{\"display_name\":\"\",\"lud16\":\"pw21@walletofsatoshi.com\",\"about\":\"Sec-05 Week 3  - Demo to build a full demo nostr app from only a phone. This account will be used to track progess. \",\"nip05\":\"\",\"lud06\":\"\",\"banner\":\"\",\"website\":\"https:\\/\\/github.com\\/humansinstitute\\/wingman\\/\",\"picture\":\"https:\\/\\/24242.io\\/0494b32127b7fcc7770f397476159db84ccf0b84220cf8f7374ad25c0f4600f3.png\",\"name\":\"Wingman: Yolo Mode\"}",
-    "created_at": 1757774467,
-    "id": "c90fa53c07a9d256088c1e21ec0f16f418ee3b6dbd78efdab73ab09d5e30bf1c",
-    "kind": 0,
-    "pubkey": "5239740673f3de26bd524be8a261f828662f4bad993b04e75082950c01e4c196",
-    "sig": "fa1ce69f50833ee4103186a218d0b94fdcf707f44bc2e1d33787ff13391e468a69cb42face1832fff5d784ba34165d00e5ae6be621a102548216ec2a8d5ae97f",
-    "tags": []
-  },
-  {
-    "content": "Not the worst office\nhttps://blossom.primal.net/c288fc234068d99719fe0da1d587a5b55714f440a82ceb3a3c80807827d28df8.mp4",
-    "created_at": 1757771600,
-    "id": "ca3a809d303d037171e0168681d7e1f3fa6aeaae5a93d850f5af44788b2b5a49",
-    "kind": 1,
-    "pubkey": "5239740673f3de26bd524be8a261f828662f4bad993b04e75082950c01e4c196",
-    "sig": "3ca8b82b1c1c19e2e0a46c2d88650011f913e6f213e9ba4dfedccd909f9b14302ce98d820615ddc9889f9545a6eb72edc30d7d23516f9dbb8043d9132876a7d3",
-    "tags": []
-  },
-  {
-    "content": "Pea connecting to my server in the apartment that does all the work whilst I walk around :) (ideally)",
-    "created_at": 1757771030,
-    "id": "c8fd2fbe6bb6b94cd8873e87cbe00e9cd3f747ec060840c5db54b518c4c0c4ba",
-    "kind": 1,
-    "pubkey": "5239740673f3de26bd524be8a261f828662f4bad993b04e75082950c01e4c196",
-    "sig": "5d11d3211aac65b40bec0e0bd2fbb621303e01c6e0a67217223aef6ab9cc803fd3519cb52cefae410fe6e6bc1e69878258b5fdd5a3e6f3d6c4b08fb1a20f1f35",
-    "tags": [
-      [
-        "e",
-        "2191a38b4e8b6f4abfa03adbf15d91ba1d4f32758ede2566f53e839f90c68ff2",
-        "",
-        "root"
-      ],
-      [
-        "e",
-        "bae374cd49e53336fa4f40deb3462f399c789e5460b4b608dc9a2895914a659e",
-        "wss://nos.lol",
-        "reply"
-      ],
-      [
-        "p",
-        "7b662a7c1198d92eed2965e848e7b8990c8ea4640c6526b7aaaf6164aa4c5bc5",
-        "",
-        "mention"
-      ]
-    ]
-  },
-  {
-    "content": "Vibes are high coding\nhttps://blossom.primal.net/c0ea305da5e737f48e8303f63493c83c2221a4976c3ae5981858689e7a738061.jpg",
-    "created_at": 1757764184,
-    "id": "c49acf1d3c03e9d59f4e04a3a3157a757948a24fb77209c408db37c59e53bad4",
-    "kind": 1,
-    "pubkey": "5239740673f3de26bd524be8a261f828662f4bad993b04e75082950c01e4c196",
-    "sig": "42acdb466dee924730ca1185388e0ec0d442f77e181dcc221388781fc55ae2a8f8a54e580b7dbf9377ed3c289d66c3221e8e2edc8bc6f1475adfe62134a99007",
-    "tags": []
-  },
-  {
-    "content": "\nhttps://blossom.primal.net/5d3f413255799e3bf9153021c901492eb60ebe1c35c0b482432c6ac383f1ce61.png",
-    "created_at": 1757754469,
-    "id": "df357588c71c57bf18150db1fff7e054800fbf159e56de7ae0e4c03aad2a42f4",
-    "kind": 1,
-    "pubkey": "5239740673f3de26bd524be8a261f828662f4bad993b04e75082950c01e4c196",
-    "sig": "9276d4775ff2a679f5195369a89dce6b0f4e3e2faaf0b788e37f955d745700c2c3a54d847897ef6d100e3802f3a901d13ffa2fb3cb26d208d15554246ed78dde",
-    "tags": []
-  },
-  {
-    "content": "\nhttps://blossom.primal.net/ec67d570d3db0d41cca1fd81379f5777dd6fd6157f194e3a5927aada3fe31e21.mp4",
-    "created_at": 1757754442,
-    "id": "7d0f5191de67ddf8f090f32bd3c86a2d663c457695c6b70771afe4a121110eb1",
-    "kind": 1,
-    "pubkey": "5239740673f3de26bd524be8a261f828662f4bad993b04e75082950c01e4c196",
-    "sig": "2e70e4e47dd2e0316537da2099339b4290914e9c6fd28c923045d7fea5ec4da80a09a3fb200196657bec65f6eac780b110309ed99917edaf25f217663b168fe7",
+    "sig": "7b337c99424af3db476396f5e45a83be0d1a383159cc8b9b26425cf74c0c4aa068834bb7879560b603d788d5faf77a6a0c688c63bf6a28b60da32fc3cf36253c",
     "tags": []
   },
   {
@@ -3516,62 +3147,141 @@
     ]
   },
   {
-    "content": "Sec-05 Wk3: Goal an entire demo developed and delivered only over a phone or a daylight tablet. \n\nLargely working outside. Agent led, full Yolo mode. \n\nThis account will track work throughout the week. ",
-    "created_at": 1757754348,
-    "id": "2191a38b4e8b6f4abfa03adbf15d91ba1d4f32758ede2566f53e839f90c68ff2",
+    "content": "\nhttps://blossom.primal.net/ec67d570d3db0d41cca1fd81379f5777dd6fd6157f194e3a5927aada3fe31e21.mp4",
+    "created_at": 1757754442,
+    "id": "7d0f5191de67ddf8f090f32bd3c86a2d663c457695c6b70771afe4a121110eb1",
     "kind": 1,
     "pubkey": "5239740673f3de26bd524be8a261f828662f4bad993b04e75082950c01e4c196",
-    "sig": "7b337c99424af3db476396f5e45a83be0d1a383159cc8b9b26425cf74c0c4aa068834bb7879560b603d788d5faf77a6a0c688c63bf6a28b60da32fc3cf36253c",
+    "sig": "2e70e4e47dd2e0316537da2099339b4290914e9c6fd28c923045d7fea5ec4da80a09a3fb200196657bec65f6eac780b110309ed99917edaf25f217663b168fe7",
     "tags": []
   },
   {
-    "content": "",
-    "created_at": 1757683430,
-    "id": "10d8210b034928d03b66739eb8242283a74162c4b99fcaceb1b1a9cd77056eff",
-    "kind": 10002,
+    "content": "\nhttps://blossom.primal.net/5d3f413255799e3bf9153021c901492eb60ebe1c35c0b482432c6ac383f1ce61.png",
+    "created_at": 1757754469,
+    "id": "df357588c71c57bf18150db1fff7e054800fbf159e56de7ae0e4c03aad2a42f4",
+    "kind": 1,
     "pubkey": "5239740673f3de26bd524be8a261f828662f4bad993b04e75082950c01e4c196",
-    "sig": "96294ef699497a3f611fadaa1ba49044cd320c5d1a31fd9a19e790f37887bd608c7a3bafd86ee38b11857ccffa40e2f6f75c69f557dc0771e96b9ec81d9180ce",
+    "sig": "9276d4775ff2a679f5195369a89dce6b0f4e3e2faaf0b788e37f955d745700c2c3a54d847897ef6d100e3802f3a901d13ffa2fb3cb26d208d15554246ed78dde",
+    "tags": []
+  },
+  {
+    "content": "Vibes are high coding\nhttps://blossom.primal.net/c0ea305da5e737f48e8303f63493c83c2221a4976c3ae5981858689e7a738061.jpg",
+    "created_at": 1757764184,
+    "id": "c49acf1d3c03e9d59f4e04a3a3157a757948a24fb77209c408db37c59e53bad4",
+    "kind": 1,
+    "pubkey": "5239740673f3de26bd524be8a261f828662f4bad993b04e75082950c01e4c196",
+    "sig": "42acdb466dee924730ca1185388e0ec0d442f77e181dcc221388781fc55ae2a8f8a54e580b7dbf9377ed3c289d66c3221e8e2edc8bc6f1475adfe62134a99007",
+    "tags": []
+  },
+  {
+    "content": "Pea connecting to my server in the apartment that does all the work whilst I walk around :) (ideally)",
+    "created_at": 1757771030,
+    "id": "c8fd2fbe6bb6b94cd8873e87cbe00e9cd3f747ec060840c5db54b518c4c0c4ba",
+    "kind": 1,
+    "pubkey": "5239740673f3de26bd524be8a261f828662f4bad993b04e75082950c01e4c196",
+    "sig": "5d11d3211aac65b40bec0e0bd2fbb621303e01c6e0a67217223aef6ab9cc803fd3519cb52cefae410fe6e6bc1e69878258b5fdd5a3e6f3d6c4b08fb1a20f1f35",
     "tags": [
       [
-        "r",
-        "wss://nostr.mom",
-        "write"
+        "e",
+        "2191a38b4e8b6f4abfa03adbf15d91ba1d4f32758ede2566f53e839f90c68ff2",
+        "",
+        "root"
       ],
       [
-        "r",
+        "e",
+        "bae374cd49e53336fa4f40deb3462f399c789e5460b4b608dc9a2895914a659e",
         "wss://nos.lol",
-        "write"
+        "reply"
       ],
       [
-        "r",
-        "wss://offchain.pub",
-        "write"
-      ],
-      [
-        "r",
-        "wss://nostr.mom",
-        "read"
-      ],
-      [
-        "r",
-        "wss://relay.damus.io",
-        "read"
-      ],
-      [
-        "r",
-        "wss://wot.utxo.one",
-        "read"
-      ],
-      [
-        "r",
-        "wss://nostrelites.org",
-        "read"
-      ],
-      [
-        "r",
-        "wss://nostr.wine",
-        "read"
+        "p",
+        "7b662a7c1198d92eed2965e848e7b8990c8ea4640c6526b7aaaf6164aa4c5bc5",
+        "",
+        "mention"
       ]
     ]
+  },
+  {
+    "content": "Not the worst office\nhttps://blossom.primal.net/c288fc234068d99719fe0da1d587a5b55714f440a82ceb3a3c80807827d28df8.mp4",
+    "created_at": 1757771600,
+    "id": "ca3a809d303d037171e0168681d7e1f3fa6aeaae5a93d850f5af44788b2b5a49",
+    "kind": 1,
+    "pubkey": "5239740673f3de26bd524be8a261f828662f4bad993b04e75082950c01e4c196",
+    "sig": "3ca8b82b1c1c19e2e0a46c2d88650011f913e6f213e9ba4dfedccd909f9b14302ce98d820615ddc9889f9545a6eb72edc30d7d23516f9dbb8043d9132876a7d3",
+    "tags": []
+  },
+  {
+    "content": "{\"display_name\":\"\",\"lud16\":\"pw21@walletofsatoshi.com\",\"about\":\"Sec-05 Week 3  - Demo to build a full demo nostr app from only a phone. This account will be used to track progess. \",\"nip05\":\"\",\"lud06\":\"\",\"banner\":\"\",\"website\":\"https:\\/\\/github.com\\/humansinstitute\\/wingman\\/\",\"picture\":\"https:\\/\\/24242.io\\/0494b32127b7fcc7770f397476159db84ccf0b84220cf8f7374ad25c0f4600f3.png\",\"name\":\"Wingman: Yolo Mode\"}",
+    "created_at": 1757774467,
+    "id": "c90fa53c07a9d256088c1e21ec0f16f418ee3b6dbd78efdab73ab09d5e30bf1c",
+    "kind": 0,
+    "pubkey": "5239740673f3de26bd524be8a261f828662f4bad993b04e75082950c01e4c196",
+    "sig": "fa1ce69f50833ee4103186a218d0b94fdcf707f44bc2e1d33787ff13391e468a69cb42face1832fff5d784ba34165d00e5ae6be621a102548216ec2a8d5ae97f",
+    "tags": []
+  },
+  {
+    "content": "Working hard, or hardly working?\nhttps://blossom.primal.net/ee63b3263217ee31be7864deca210e14f60a8a9597290932f068f3c657ddf2c1.jpg",
+    "created_at": 1757784671,
+    "id": "9d48ba28aea94a0993b8d8c39ca52aa85be5e7fcb7ea3965ea366e827b58fab7",
+    "kind": 1,
+    "pubkey": "5239740673f3de26bd524be8a261f828662f4bad993b04e75082950c01e4c196",
+    "sig": "6ee49560095e85adb9dd76e274875fbb2c8d7f4827f9010ca3241391706655d96a90cfe9010b76204d814ea9f54961263cbf29ed6407f60c9557fd4abb8d56a2",
+    "tags": []
+  },
+  {
+    "content": "Hopefully getting a first example built in applesauce. \n\nLet’s see if it can compile and get it running on my phone without needing to bust out the laptop. \nhttps://blossom.primal.net/7411630793da1ef91c18acdccbe35090b84b8aa3a56d0926c0ecf8979a78ab9b.mp4\nhttps://blossom.primal.net/3f4b189d24a27c9e86bfa984d8da286e453d48324fb7e2002577ccc5d675204f.png",
+    "created_at": 1757785061,
+    "id": "2bec87ead271a20baa822c45e9dc0a939aa97e05c7566bca6ec78121b4232134",
+    "kind": 1,
+    "pubkey": "5239740673f3de26bd524be8a261f828662f4bad993b04e75082950c01e4c196",
+    "sig": "9e6a4117715db4eb20e188ab7e0ade6b7b1b8e999b98b30586553ffa0a6946474b202cd90ac8945d5075f54971360f96977ac6c9db079c9cf65d690f6636237e",
+    "tags": []
+  },
+  {
+    "content": "Done :)",
+    "created_at": 1757785490,
+    "id": "03ee3e76ad4862f79ea93c039fde50fd72a549401679d677307acf97dd83cdf4",
+    "kind": 1,
+    "pubkey": "5239740673f3de26bd524be8a261f828662f4bad993b04e75082950c01e4c196",
+    "sig": "4857338b5faaf4b57146172c39133cf8bc1122e2baabd4b5cf2696c44192b1abb509cb9c163c600a3fbb881a21e95c4b711f30d2352529f5a55527c62fd55770",
+    "tags": [
+      [
+        "e",
+        "df357588c71c57bf18150db1fff7e054800fbf159e56de7ae0e4c03aad2a42f4",
+        "wss://relay.primal.net",
+        "root",
+        "5239740673f3de26bd524be8a261f828662f4bad993b04e75082950c01e4c196"
+      ],
+      [
+        "e",
+        "77255efc51177dd0793d76de59065d43f18f4470ab14784c3751884bdf751696",
+        "wss://relay.primal.net",
+        "reply"
+      ],
+      [
+        "p",
+        "d60bdad03468f5f8c85b1b10db977e310a5aafab33750dfadb37488b02bfc8d7",
+        "",
+        "mention"
+      ]
+    ]
+  },
+  {
+    "content": "This might need a bit of work…\nhttps://blossom.primal.net/3f4b189d24a27c9e86bfa984d8da286e453d48324fb7e2002577ccc5d675204f.png\nhttps://blossom.primal.net/d8d9eecd57b4a38eea4dd00d3603e57927c101846bce411b872a551f74c0c01e.png",
+    "created_at": 1757786866,
+    "id": "48ad39831413dcd9126d7a5bddbe39f7e8d18d738a3553709927b87e0c5c59c6",
+    "kind": 1,
+    "pubkey": "5239740673f3de26bd524be8a261f828662f4bad993b04e75082950c01e4c196",
+    "sig": "bf2ad3a3d395cd27f7b07369bb62b8e5ff08235d4abfe2057d712a3b9a7f90d10c3a099f2212277d9d24c53180c970a8fc51fa80d6c596a1f882c95bb3415145",
+    "tags": []
+  },
+  {
+    "content": " Back on track\nhttps://blossom.primal.net/e6ad8a272d48405ef89a03d96f03dfdc30f276670b7f8c255190c3c15b6288b4.png\nhttps://blossom.primal.net/fb61f2a95d03d13e3166609a99438ccc8bb7339cbe82d5ba5ed57f13bc58c58c.png",
+    "created_at": 1757787166,
+    "id": "f949d276671500e6d17f32cee9f2617a831e6308136609a994a180cd11996466",
+    "kind": 1,
+    "pubkey": "5239740673f3de26bd524be8a261f828662f4bad993b04e75082950c01e4c196",
+    "sig": "68f8dda5e53f61864f555ef4333ae737c5e21269dfef970f8d97c59f860ff05b251238baf84ba66d96ec4e2135dca6bc3515d47d8da56b950c274100068e28a3",
+    "tags": []
   }
 ]
