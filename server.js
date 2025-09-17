@@ -85,7 +85,7 @@ app.post('/api/export-events', async (req, res) => {
 
     // New: call Context VM for each day with joined text
     const vmResults = [];
-    const { withCraigDavid } = await import(path.join(__dirname, 'context_vm.ts'));
+    const { withCraigDavid } = await import(path.join(__dirname, 'context_vm.js'));
     for (const jt of justText) {
       const question = `Please analyse and summarize the following daily content for ${npub} (day ${jt.filename.replace('-events.json','')}): ${jt.content}`;
       try {
