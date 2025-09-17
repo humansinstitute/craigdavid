@@ -1,0 +1,27 @@
+[
+  {
+    "dayFile": "250917-events.json",
+    "tool": "funny_agent",
+    "response": "Here is a summary of that user's day:\n\nThe user started the day by deciding to discard previous work based on a \"big PRD and plan approach,\" and instead favored small, iterative steps, which they found more successful. This yielded progress with a customer context VM client talking to a customer context VM server. They intended to integrate this into a demo app, but encountered an error where the VM was supposed to be a custom version. \n\nLater, they received a request to update a \"generate song\" function to generate an individual events.json file per day, and began working on locating and modifying the function.  They also received a request to build and test a CVM using a test client, which was successfully built and deployed with the help of the Wingman tool. Finally they were tasked to to implemnet a resuable utility that calls context Vms with details from that day.\n"
+  },
+  {
+    "dayFile": "250916-events.json",
+    "tool": "funny_agent",
+    "response": "Here is a summary of the user's day on 250916:\n\nThe user focused on creating a new feature PRD (Product Requirements Document) in Wingman for a demo. This involved dictating updates to the PRD, reviewing it, and then structuring it into work packages for a developer sub-agent to implement. He worked on implementing with the sub-agent but realized the code was created in the Obsidian vault instead of the source directory so he needed to update the recipe.\nHe also encountered some difficulties. One being he got stuck in nano on his phone due to missing key bindings, and another with working with implementation.\n\nOverall, the day seemed focused on planning and setting up the feature for implementation.\n"
+  },
+  {
+    "dayFile": "250915-events.json",
+    "tool": "funny_agent",
+    "response": "Okay, here's a summary of npub12guhgpnn700zd02jf052yc0c9pnz7jadnyasfe6ss22scq0ycxtqudypta's day (250915), based on the provided information:\n\n*   **Build & Deployment:** The user was working on a project called \"Wingman,\" and managed to get it working nicely with tmux to manage build scripts and deployment from their phone, though perhaps not perfectly (\"Sometimes…\").\n\n*   **Debugging & Configuration:** Involved debugging an issue with dev.otherstuff.studio.\n    *   They were updating the Vite configuration to listen on all interfaces, force port 5180, and use dev.otherstuff.studio for HMR host, to ensure the phone browser connects back correctly.\n    *   They also address a hot issue by urging for immediate deployment of changes to the nApp.\n\n*   **Other Notes:** There are mentions of Yolo Mode and something about documentation with Obsidian.\n\nIn essence, the user spent a significant portion of the day working on deployment and debugging their dev environment, using tools like Wingman, tmux, and Vite."
+  },
+  {
+    "dayFile": "250914-events.json",
+    "tool": "funny_agent",
+    "response": "On day 250914 (translated to Sept 13th 2025), the user, npub12guhgpnn700zd02jf052yc0c9pnz7jadnyasfe6, reported achieving an initial milestone of getting something running from their phone. However, they also expressed frustration and a need for improvement regarding deployments, stating \"Deployments are shit needs some thought.\" The image shows the user used craigdavid to view the the activity feed of npub12guhgpnn700zd02jf052yc0c9pnz7jadnyasfe6 for that day."
+  },
+  {
+    "dayFile": "250913-events.json",
+    "tool": "funny_agent",
+    "response": "Okay, here's a summary of the user's day, based on the provided text and images:\n\n**Overall Goal:**\n\nThe user's main goal for the week (and this day as part of it) appears to be developing and delivering a demo entirely on a phone or tablet, working largely outside in \"Yolo mode\".  They are agent-led, meaning they are using an AI assistant/agent to help.\n\n**Daily Activities:**\n\n*   **Coding and Server Connection:** The user is coding, with high vibes. They are connecting their phone/tablet to a server (located in their apartment) to handle the heavy lifting and compilation.\n*   **Location:** The user is working from a nice location with a beautiful view.\n*   **Applesauce Project:** They are working on a project called \"applesauce,\" attempting to get a first example built. Their aim is to compile and run this on their phone without resorting to a laptop.\n*   **Compilation Issues:** The user encountered compilation issues, specifically with the \"craigdavid\" app. The TypeScript configuration enforced `noUnusedLocals`, but the build was failing on line 47 of 'craigdavid.tsx' due to this error.\n*   **Problem-Solving with AI:** The user is clearly interacting with an AI assistant (Wingman: Goose as per the images). They are using it to debug issues, asking for help with compilation, and receiving detailed diagnostic information and potential fixes. The AI suggests modifying the code to remove the unused setter from destructuring.\n*   **Ongoing Development:** Despite some hurdles, the user is back on track to get a first example built in Applesauce.\n\n**In summary:** The user spent the day focused on coding and debugging, dealing with compilation issues in their \"applesauce\" project, likely working on an agent-led demo to be delivered via mobile devices. They relied heavily on an AI assistant (Goose) to diagnose and offer solutions for their codebase."
+  }
+]

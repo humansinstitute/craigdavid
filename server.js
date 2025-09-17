@@ -83,52 +83,20 @@ app.post('/api/export-events', async (req, res) => {
     const justTextPath = path.join(outDir, 'just_text.json');
     fs.writeFileSync(justTextPath, JSON.stringify(justText, null, 2), 'utf8');
 
-    // New: call Context VM for each day with joined text
-    const vmResults = [];
-    const { withCraigDavid } = await import(path.join(__dirname, 'context_vm.js'));
-
-    if (justText.length === 0) {
-      console.warn('[CVM] No daily content (just_text empty). Skipping Context VM calls.');
-    }
-
-    // Determine tool name
-    let toolName = process.env.CVM_TOOL || 'funny_agent';
-    try {
-      const tools = await withCraigDavid(async (c) => c.listTools());
-      const available = new Set((tools?.tools || []).map(t => t.name));
-      if (!available.has(toolName)) {
-        const first = (tools?.tools || [])[0]?.name;
-        console.warn(`[CVM] Preferred tool "${toolName}" not found. Available: ${[...available].join(', ')}`);
-        if (first) {
-          toolName = first;
-          console.warn(`[CVM] Falling back to: ${toolName}`);
-        }
-      }
-    } catch (e) {
-      console.warn('[CVM] listTools failed; proceeding with default tool name:', toolName, e);
-    }
-
-    for (const jt of justText) {
-      const question = `Please analyse and summarize the following daily content for ${npub} (day ${jt.filename.replace('-events.json','')}): ${jt.content}`;
-      try {
-        const vmResp = await withCraigDavid(async (c) => {
-          const result = await c.callTool(toolName, { question });
-          const text = result?.content?.[0]?.text || JSON.stringify(result);
-          return text;
-        });
-        vmResults.push({ dayFile: jt.filename, tool: toolName, response: vmResp });
-      } catch (e) {
-        console.warn('Context VM call failed for', jt.filename, e);
-        vmResults.push({ dayFile: jt.filename, tool: toolName, error: String(e) });
-      }
-    }
-    const vmOutPath = path.join(outDir, 'vm_results.json');
-    fs.writeFileSync(vmOutPath, JSON.stringify(vmResults, null, 2), 'utf8');
-
     // Back-compat: include `path` of first file if present
     const pathCompat = written.length ? written[0].file : null;
 
-    return res.json({ ok: true, files: written, path: pathCompat, just_text_path: justTextPath, just_text_count: justText.length, vm_results_path: vmOutPath, vm_results_count: vmResults.length });
+    // Context VM processing is now handled by the file watcher service (context-vm-watcher.js)
+    // The watcher monitors for just_text.json and automatically processes it
+    
+    return res.json({ 
+      ok: true, 
+      files: written, 
+      path: pathCompat, 
+      just_text_path: justTextPath, 
+      just_text_count: justText.length,
+      note: 'Context VM processing will be handled automatically by the watcher service'
+    });
   } catch (e) {
     console.error('export-events failed', e);
     return res.status(500).json({ error: 'Failed to export events' });

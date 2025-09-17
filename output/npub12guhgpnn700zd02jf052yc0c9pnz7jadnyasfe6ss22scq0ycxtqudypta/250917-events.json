@@ -16,5 +16,30 @@
     "pubkey": "5239740673f3de26bd524be8a261f828662f4bad993b04e75082950c01e4c196",
     "sig": "d10aaee4a50c5727b00ab07ecab329be81b483db37a0385ddd2aea3093e40dd4fbfa3624d1a7ca0a61f37b22d512deba8f518760a07498e4868842fe21c81472",
     "tags": []
+  },
+  {
+    "content": "Alright let’s integrate it into the demo app\nhttps://blossom.primal.net/6635320ffd4211f8e303e6c0d6c80442baa3d44d5dbc5fe570722618659d046f.png",
+    "created_at": 1758119907,
+    "id": "dd63e9a2566f3c8ea3e0020d854f292abe67c7f96cde99db6ec5a39849968c15",
+    "kind": 1,
+    "pubkey": "5239740673f3de26bd524be8a261f828662f4bad993b04e75082950c01e4c196",
+    "sig": "b8fc63ac638002a7bb4bbe131a31f48dbbb909c2e1e40a3875247956375e46e42c49dd33852a8ea377781bac53a21d37699f2f5aa2892061aff381edeadb1bd2",
+    "tags": []
+  },
+  {
+    "content": "Bollocks. That was supposed to be a “custom” context VM client and server :)",
+    "created_at": 1758124004,
+    "id": "21cb6d00d81b0cfad3f3bf7f9c19e4d45d0f72c35e364f31701585943271f2db",
+    "kind": 1,
+    "pubkey": "5239740673f3de26bd524be8a261f828662f4bad993b04e75082950c01e4c196",
+    "sig": "3a583cfad59ad599caadae012ffa5a19d09165b24d6816306b498105dbda2be657819d63046f5eae86b3dd1dbe21dce10454049aaa35b8c27b3b2d09d09bb68f",
+    "tags": [
+      [
+        "e",
+        "65acf6c4150c8850c7b7dc24546d5b8665f65eadcd7866f8301c59a18447cd24",
+        "",
+        "root"
+      ]
+    ]
   }
 ]

@@ -12,9 +12,10 @@ if (!CLIENT_PRIVATE_KEY_HEX) {
 }
 
 const DEFAULT_RELAYS = [
-  'wss://relay.contextvm.org',
-  'wss://relay.damus.io',
+  "wss://relay.contextvm.org",
 ];
+
+
 const RELAYS = (process.env.CVM_RELAYS?.split(',').map(s => s.trim()).filter(Boolean) || DEFAULT_RELAYS);
 
 export class CraigDavidClient {
