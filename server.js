@@ -30,9 +30,12 @@ app.post('/api/export-events', (req, res) => {
     const outDir = path.join(__dirname, 'output', npub);
     fs.mkdirSync(outDir, { recursive: true });
 
+    // Only export kind 1 events
+    const source = events.filter(e => Number(e?.kind) === 1);
+
     // Group events by UTC day (YYMMDD) based on created_at
     const buckets = new Map(); // key -> array
-    for (const e of events) {
+    for (const e of source) {
       const t = e && e.created_at;
       const tn = typeof t === 'number' ? t : (typeof t === 'string' ? Number(t) : NaN);
       if (!Number.isFinite(tn)) continue; // skip invalid
