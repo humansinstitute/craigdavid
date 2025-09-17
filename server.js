@@ -86,18 +86,40 @@ app.post('/api/export-events', async (req, res) => {
     // New: call Context VM for each day with joined text
     const vmResults = [];
     const { withCraigDavid } = await import(path.join(__dirname, 'context_vm.js'));
+
+    if (justText.length === 0) {
+      console.warn('[CVM] No daily content (just_text empty). Skipping Context VM calls.');
+    }
+
+    // Determine tool name
+    let toolName = process.env.CVM_TOOL || 'funny_agent';
+    try {
+      const tools = await withCraigDavid(async (c) => c.listTools());
+      const available = new Set((tools?.tools || []).map(t => t.name));
+      if (!available.has(toolName)) {
+        const first = (tools?.tools || [])[0]?.name;
+        console.warn(`[CVM] Preferred tool "${toolName}" not found. Available: ${[...available].join(', ')}`);
+        if (first) {
+          toolName = first;
+          console.warn(`[CVM] Falling back to: ${toolName}`);
+        }
+      }
+    } catch (e) {
+      console.warn('[CVM] listTools failed; proceeding with default tool name:', toolName, e);
+    }
+
     for (const jt of justText) {
       const question = `Please analyse and summarize the following daily content for ${npub} (day ${jt.filename.replace('-events.json','')}): ${jt.content}`;
       try {
         const vmResp = await withCraigDavid(async (c) => {
-          const result = await c.callTool('funny_agent', { question });
+          const result = await c.callTool(toolName, { question });
           const text = result?.content?.[0]?.text || JSON.stringify(result);
           return text;
         });
-        vmResults.push({ dayFile: jt.filename, response: vmResp });
+        vmResults.push({ dayFile: jt.filename, tool: toolName, response: vmResp });
       } catch (e) {
         console.warn('Context VM call failed for', jt.filename, e);
-        vmResults.push({ dayFile: jt.filename, error: String(e) });
+        vmResults.push({ dayFile: jt.filename, tool: toolName, error: String(e) });
       }
     }
     const vmOutPath = path.join(outDir, 'vm_results.json');
