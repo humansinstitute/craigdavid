@@ -90,7 +90,7 @@ app.post('/api/export-events', async (req, res) => {
       const question = `Please analyse and summarize the following daily content for ${npub} (day ${jt.filename.replace('-events.json','')}): ${jt.content}`;
       try {
         const vmResp = await withCraigDavid(async (c) => {
-          const result: any = await c.callTool('funny_agent', { question });
+          const result = await c.callTool('funny_agent', { question });
           const text = result?.content?.[0]?.text || JSON.stringify(result);
           return text;
         });
