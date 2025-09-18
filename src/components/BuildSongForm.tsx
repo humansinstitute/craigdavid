@@ -26,7 +26,7 @@ export default function BuildSongForm({ npub, events }: { npub?: string; events?
           spellCheck={false}
         />
         <button type="submit" className="btn btn-secondary text-[16px]">
-          Build Song
+          Roast My Week
         </button>
       </form>
     </section>
