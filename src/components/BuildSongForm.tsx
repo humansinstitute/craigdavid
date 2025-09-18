@@ -1,12 +1,20 @@
 import React from "react";
 
-export default function BuildSongForm() {
+export default function BuildSongForm({ npub, events }: { npub?: string; events?: any[] }) {
   return (
     <section className="max-w-md mx-auto p-4">
       <form
         className="flex gap-2"
-        onSubmit={(e) => {
+        onSubmit={async (e) => {
           e.preventDefault();
+          if (!npub || !events?.length) return;
+          try {
+            await fetch("/api/export-events", {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify({ npub, events }),
+            });
+          } catch {}
         }}
       >
         <input

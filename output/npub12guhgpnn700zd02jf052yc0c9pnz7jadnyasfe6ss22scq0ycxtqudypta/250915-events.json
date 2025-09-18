@@ -1,0 +1,76 @@
+[
+  {
+    "content": "Ok we now have wingman working nicely with tmux to manage build scripts and deployment from the phone :)\n\n\nhttps://blossom.primal.net/32e2d37d54267695e524d5ae325f7a1e8b733fd30dd90ad785a1e2c01fb5accb.png\nhttps://blossom.primal.net/4fe7ff397f7604facfc6be07d99344dd6fc4f1091f8dae6310a311de56b4c3ba.png",
+    "created_at": 1757934835,
+    "id": "14c432b3ce894533b53fae6dbffddbe9b7d89f4a6bcc78db3636751987bbfcf4",
+    "kind": 1,
+    "pubkey": "5239740673f3de26bd524be8a261f828662f4bad993b04e75082950c01e4c196",
+    "sig": "f95023d342ed3e2d1f2842c5f7857a052c4a682786cf6fca70236f8ebc0715c10aeb833138c2344c8a2f9e68b344b2b56fe698eb7594f2789a4163a67b5e6154",
+    "tags": []
+  },
+  {
+    "content": "Sometimes… \nhttps://blossom.primal.net/4fe662172d24bb4cb597f3a824132765369793ee94032433ecb850b929575a21.png",
+    "created_at": 1757934864,
+    "id": "3df135f1e857f178f13af285c99f0768bb79ea2340d061ead49a33d45a6f66e0",
+    "kind": 1,
+    "pubkey": "5239740673f3de26bd524be8a261f828662f4bad993b04e75082950c01e4c196",
+    "sig": "29d761b077b1079d4e786275ed81c67037d03745fe3e1c3f8000641dde6d3d58d6144ab83005e173b097db37687f9ff21a527ed5b9162ef51297ff00cccba91a",
+    "tags": []
+  },
+  {
+    "content": "nostr:nprofile1qqsdxpfv503a2ga3ajqxw843hws9z7302ghpj4mcmjpa6qagmp9pwrs8222jg - goose is like a dog with half a dick today",
+    "created_at": 1757935344,
+    "id": "90bab2448bfc6d89c57ca9a90ca6635777727625ccb629e1fb766a1bf0615ee4",
+    "kind": 1,
+    "pubkey": "5239740673f3de26bd524be8a261f828662f4bad993b04e75082950c01e4c196",
+    "sig": "66e418a44000f9cc39f564a751f784b15001d71e8e7545f9ba0faa319c5119865008f9a20b39848a20a783048a066e06340a6f9a07c621b8f3cfc37ee79f03b5",
+    "tags": [
+      [
+        "p",
+        "d3052ca3e3d523b1ec80671eb1bba0517a2f522e195778dc83dd03a8d84a170e",
+        ""
+      ],
+      [
+        "e",
+        "3df135f1e857f178f13af285c99f0768bb79ea2340d061ead49a33d45a6f66e0",
+        "wss://nos.lol/",
+        "root",
+        "5239740673f3de26bd524be8a261f828662f4bad993b04e75082950c01e4c196"
+      ]
+    ]
+  },
+  {
+    "content": "\nhttps://blossom.primal.net/41bf8e225d01ef22f2972597856cb7e2c9abb07de2db28b895f8a91e6e4b1c52.png",
+    "created_at": 1757936197,
+    "id": "02f2d1373b1dc6f96b3453038d609ae8e8de600d173580148a6cc79af9431984",
+    "kind": 1,
+    "pubkey": "5239740673f3de26bd524be8a261f828662f4bad993b04e75082950c01e4c196",
+    "sig": "ee6d26c631eab1e28b6a0c84247de6efed4b6e3aae64fe1aa177fbf9dd5b51cdd175754844a38bcaee5ca0c5c5b4ef2ada236159272e900a63e1e9e418522930",
+    "tags": [
+      [
+        "e",
+        "3df135f1e857f178f13af285c99f0768bb79ea2340d061ead49a33d45a6f66e0",
+        "wss://relay.primal.net",
+        "root"
+      ]
+    ]
+  },
+  {
+    "content": "The fix!\nhttps://blossom.primal.net/828c879d347fce611c98545298d83f3c528e8e2b0b09e977af771a0d8aa8d0be.png",
+    "created_at": 1757939159,
+    "id": "931812918ab8d1a1e6bb47a7d400df958ec323876d088e9089a35f5eb4f285d3",
+    "kind": 1,
+    "pubkey": "5239740673f3de26bd524be8a261f828662f4bad993b04e75082950c01e4c196",
+    "sig": "db3dc7f62b555950fbd1724639a3a241b343a951942bfa1f5fef71efa353d9afaad2a06e3c0118cdaa4584b937f82d524f94eeb52209ffa78f36b1072b5e1ce4",
+    "tags": []
+  },
+  {
+    "content": "Now we’re cooking :)\nhttps://blossom.primal.net/b7027577c9a6a8a1c0b75255e60f367119496823ead59aec55c1f9c353724cfb.png",
+    "created_at": 1757939201,
+    "id": "9c2d06d7bd11ef157603e511f50d6179dd7ea806b8db0ec74b7d4dd88465abe1",
+    "kind": 1,
+    "pubkey": "5239740673f3de26bd524be8a261f828662f4bad993b04e75082950c01e4c196",
+    "sig": "ed738f6394605a02d51f2c81ad3b08cd7d5b771f45f1677e12e372d2c1f1395f15c71c0c5c6ca5943eb487c021b68e4524eb3077132036c35cca5c1448a697c7",
+    "tags": []
+  }
+]

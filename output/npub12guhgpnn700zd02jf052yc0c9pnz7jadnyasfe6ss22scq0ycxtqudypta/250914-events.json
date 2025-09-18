@@ -1,0 +1,11 @@
+[
+  {
+    "content": "Not quite right but we have our first thing running just from the phone. \n\nDeployments are shit needs some thought\nhttps://blossom.primal.net/b5ca6b0032ae4936d1b42e857c5c1a337e98be199dc4a6c1e58e09fb3fac9c0e.png",
+    "created_at": 1757836113,
+    "id": "5885eed586f5c57b5df1642e3bfd91f40b7da305d7325bb7bf848f0fad5d7cbb",
+    "kind": 1,
+    "pubkey": "5239740673f3de26bd524be8a261f828662f4bad993b04e75082950c01e4c196",
+    "sig": "04a975d7706daad2926523a4ae5b5ad96793da1c50d7e4559bd7a7dd732f45b51808ae38c1adef367adabacd3af395b263f14cf99a868784161886bd8e0a4a52",
+    "tags": []
+  }
+]

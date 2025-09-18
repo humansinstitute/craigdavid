@@ -29,6 +29,8 @@ export default function SevenDays({ initialHex, showBuildSongForm }: Props) {
 
   const timeline = useSevenDayTimeline(activeRelays, hex, sinceTs, limit);
 
+  const npub = useMemo(() => (hex ? nip19.npubEncode(hex) : undefined), [hex]);
+
   // Header avatar support (only used here if component is embedded without global Header)
   const craigEnvNpub = (import.meta as any).env?.VITE_APP_NPUB || (import.meta as any).env?.VITE_NPUB || "";
   const craigHex = useMemo(() => (craigEnvNpub ? decodeToHex(craigEnvNpub) : undefined), [craigEnvNpub]);
@@ -136,7 +138,7 @@ export default function SevenDays({ initialHex, showBuildSongForm }: Props) {
       )}
 
       {/* Build Song form appears above the events stream when requested (e.g., /npub...) */}
-      {showBuildSongForm && <BuildSongForm />}
+      {showBuildSongForm && <BuildSongForm npub={npub} events={timeline} />}
 
       <div className="flex flex-col gap-2">
         {!timeline?.length && <div className="opacity-70">No events loaded.</div>}

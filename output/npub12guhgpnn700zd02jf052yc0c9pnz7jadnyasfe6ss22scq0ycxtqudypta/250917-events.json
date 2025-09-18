@@ -1,0 +1,45 @@
+[
+  {
+    "content": "Had to throw away work from Monday with the “big PRD and plan approach”\n\nBut taking small incremental steps is working :)\nhttps://blossom.primal.net/e42026fbffc9298bd16c2abb63d2fee63e622b968ffeaa5b8cb57660eb655a2c.png",
+    "created_at": 1758113165,
+    "id": "53d044e06386d6f4fc423ee887145db0eef69157efe020fd545da3632d2e866f",
+    "kind": 1,
+    "pubkey": "5239740673f3de26bd524be8a261f828662f4bad993b04e75082950c01e4c196",
+    "sig": "05e63a3ec7ecbb7f96a5fd1e0c29dcbed017a409c151aa55e72f8a340dd2bc63662ab29ab68309b8f32b1e34ce19f3f0b25c75272a95f991452baabc109458c9",
+    "tags": []
+  },
+  {
+    "content": "A customer context VM client talking to a customer context vm server - now we’re getting somewhere!\nhttps://blossom.primal.net/bdc29fd680457bfd73cd952f5fd9004ac8d5b3120b506492beaff9dd227058ef.png\nhttps://blossom.primal.net/77d1b22fad2497ed64709ec469bbdafe4b69b9043e0fa96be9f06f69b427cd8e.jpg",
+    "created_at": 1758117722,
+    "id": "65acf6c4150c8850c7b7dc24546d5b8665f65eadcd7866f8301c59a18447cd24",
+    "kind": 1,
+    "pubkey": "5239740673f3de26bd524be8a261f828662f4bad993b04e75082950c01e4c196",
+    "sig": "d10aaee4a50c5727b00ab07ecab329be81b483db37a0385ddd2aea3093e40dd4fbfa3624d1a7ca0a61f37b22d512deba8f518760a07498e4868842fe21c81472",
+    "tags": []
+  },
+  {
+    "content": "Alright let’s integrate it into the demo app\nhttps://blossom.primal.net/6635320ffd4211f8e303e6c0d6c80442baa3d44d5dbc5fe570722618659d046f.png",
+    "created_at": 1758119907,
+    "id": "dd63e9a2566f3c8ea3e0020d854f292abe67c7f96cde99db6ec5a39849968c15",
+    "kind": 1,
+    "pubkey": "5239740673f3de26bd524be8a261f828662f4bad993b04e75082950c01e4c196",
+    "sig": "b8fc63ac638002a7bb4bbe131a31f48dbbb909c2e1e40a3875247956375e46e42c49dd33852a8ea377781bac53a21d37699f2f5aa2892061aff381edeadb1bd2",
+    "tags": []
+  },
+  {
+    "content": "Bollocks. That was supposed to be a “custom” context VM client and server :)",
+    "created_at": 1758124004,
+    "id": "21cb6d00d81b0cfad3f3bf7f9c19e4d45d0f72c35e364f31701585943271f2db",
+    "kind": 1,
+    "pubkey": "5239740673f3de26bd524be8a261f828662f4bad993b04e75082950c01e4c196",
+    "sig": "3a583cfad59ad599caadae012ffa5a19d09165b24d6816306b498105dbda2be657819d63046f5eae86b3dd1dbe21dce10454049aaa35b8c27b3b2d09d09bb68f",
+    "tags": [
+      [
+        "e",
+        "65acf6c4150c8850c7b7dc24546d5b8665f65eadcd7866f8301c59a18447cd24",
+        "",
+        "root"
+      ]
+    ]
+  }
+]
