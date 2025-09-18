@@ -19,16 +19,30 @@ app.disable('x-powered-by');
 // API: export events by day into output/<npub>/<YYMMDD>-events.json
 app.post('/api/export-events', async (req, res) => {
   try {
-    const { npub, events } = req.body || {};
+    const { npub, events, token } = req.body || {};
     if (typeof npub !== 'string' || !/^npub1[0-9a-z]+$/.test(npub)) {
       return res.status(400).json({ error: 'Invalid npub' });
     }
     if (!Array.isArray(events)) {
       return res.status(400).json({ error: 'Invalid events array' });
     }
+    if (typeof token !== 'string' || !token.startsWith('cashu')) {
+      return res.status(400).json({ error: 'Invalid or missing Cashu token (must start with "cashu")' });
+    }
 
     const outDir = path.join(__dirname, 'output', npub);
     fs.mkdirSync(outDir, { recursive: true });
+
+    // Save token as text file under output/tokens
+    try {
+      const tokensDir = path.join(__dirname, 'output', 'tokens');
+      fs.mkdirSync(tokensDir, { recursive: true });
+      const ts = new Date().toISOString().replace(/[:.]/g, '-');
+      const tokenFile = path.join(tokensDir, `${npub}-${ts}.txt`);
+      fs.writeFileSync(tokenFile, token + '\n', 'utf8');
+    } catch (e) {
+      console.warn('Failed to persist Cashu token', e);
+    }
 
     // Only export kind 1 events
     const source = events.filter(e => Number(e?.kind) === 1);

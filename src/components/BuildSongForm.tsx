@@ -23,7 +23,7 @@ export default function BuildSongForm({ npub, events }: { npub?: string; events?
             await fetch("/api/export-events", {
               method: "POST",
               headers: { "Content-Type": "application/json" },
-              body: JSON.stringify({ npub, events }),
+              body: JSON.stringify({ npub, events, token }),
             });
           } catch {}
         }}
