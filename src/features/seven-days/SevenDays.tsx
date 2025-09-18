@@ -1,4 +1,6 @@
 import React, { useEffect, useMemo, useState } from "react";
+import WeeklySongBanner from "./WeeklySongBanner";
+
 import { useNavigate } from "react-router-dom";
 import { decodeToHex } from "../../lib/decode";
 import { nip19 } from "nostr-tools";
@@ -12,6 +14,7 @@ import { useSevenDayTimeline } from "./useSevenDayTimeline";
 import { useObservableMemo } from "applesauce-react/hooks";
 import BuildSongForm from "../../components/BuildSongForm";
 import { useCraigDailySummaries } from "./useCraigDailySummaries";
+import { useCraigWeeklySong } from "./useCraigWeeklySong";
 import DailyColumn from "./DailyColumn";
 import type { NostrEvent } from "nostr-tools";
 
@@ -181,8 +184,20 @@ export default function SevenDays({ initialHex, showBuildSongForm }: Props) {
         </div>
       )}
 
-      {/* Build Song form appears above the events stream when requested (e.g., /npub...) */}
+      {/* Roast My Week form appears above the events stream when requested (e.g., /npub...) */}
+
+
       {showBuildSongForm && <BuildSongForm npub={npub} events={timeline} />}
+
+      {/* Weekly Song (collapsed preview above the 7-day columns) */}
+      {isDeepLinked && (
+        <WeeklySongBanner
+          relays={craigRelays}
+          craigHex={craigHex}
+          subjectHex={hex}
+          sinceTs={sinceTs}
+        />
+      )}
 
       {isDeepLinked && (
         <div className="overflow-x-auto">
