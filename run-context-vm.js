@@ -15,7 +15,7 @@ const [justTextPath, npub, outputPath] = args;
 async function main() {
   try {
     const justText = JSON.parse(fs.readFileSync(justTextPath, 'utf8'));
-    const toolName = process.env.CVM_TOOL || 'funny_agent';
+    const toolName = process.env.CVM_TOOL || 'summarise';
     const vmResults = [];
     
     // Process each day

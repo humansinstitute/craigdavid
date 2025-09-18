@@ -37,7 +37,7 @@ async function processJustText(npub, justTextPath) {
     }
     
     const vmResults = [];
-    const toolName = process.env.CVM_TOOL || 'funny_agent';
+    const toolName = process.env.CVM_TOOL || 'summarise';
     
     // Check available tools once
     let actualToolName = toolName;
@@ -66,7 +66,7 @@ async function processJustText(npub, justTextPath) {
       
       try {
         const vmResp = await withCraigDavid(async (c) => {
-          const result = await c.callTool(actualToolName, { question });
+          const result = await c.callTool(actualToolName, { dayInput: question });
           const text = result?.content?.[0]?.text || JSON.stringify(result);
           return text;
         });

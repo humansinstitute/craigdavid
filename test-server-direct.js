@@ -37,7 +37,7 @@ async function testServerFlow() {
     }
     
     // Test connection
-    let toolName = 'funny_agent';
+    let toolName = 'summarise';
     console.log(`[CVM] Testing connection and discovering tools...`);
     const tools = await withCraigDavid(async (c) => c.listTools());
     console.log('Tools response:', tools);

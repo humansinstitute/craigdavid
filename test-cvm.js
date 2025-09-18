@@ -24,7 +24,7 @@ async function testCVM() {
   
   // Test connection first
   console.log(`[CVM] Testing connection and discovering tools...`);
-  let toolName = 'funny_agent';
+  let toolName = 'summarise';
   try {
     const tools = await withCraigDavid(async (c) => c.listTools());
     const available = new Set((tools?.tools || []).map(t => t.name));
@@ -54,7 +54,7 @@ async function testCVM() {
     try {
       console.log(`[CVM] Calling tool ${toolName} for ${jt.filename}...`);
       const vmResp = await withCraigDavid(async (c) => {
-        const result = await c.callTool(toolName, { question });
+        const result = await c.callTool(toolName, { dayInput: question });
         const text = result?.content?.[0]?.text || JSON.stringify(result);
         return text;
       });

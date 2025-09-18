@@ -41,5 +41,14 @@
         "root"
       ]
     ]
+  },
+  {
+    "content": "Debugging the context VM client integration\nhttps://blossom.primal.net/90fd36ab8639a21408ba1dc3f1f449e3e8a334ab420944eee3f0aef6cdba0302.jpg",
+    "created_at": 1758132454,
+    "id": "8e6acf80fe47b18e65627f4dd499f46903aa40007073dc7675a76fb6ef748e87",
+    "kind": 1,
+    "pubkey": "5239740673f3de26bd524be8a261f828662f4bad993b04e75082950c01e4c196",
+    "sig": "2486a9ac26ae9f0335fbda8d85f55f38d4f3b937a33ccfe9b9b2f8c2e052110e6a77026df20e5e58ded491a823f46208010daa4a54bc3b1eafcb1488f885938c",
+    "tags": []
   }
 ]

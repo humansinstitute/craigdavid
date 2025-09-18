@@ -6,7 +6,7 @@ import { withCraigDavid } from './context_vm.js';
 process.on('message', async (msg) => {
   if (msg.type === 'PROCESS_CONTENT') {
     try {
-      const { justText, npub, toolName = 'funny_agent' } = msg.data;
+      const { justText, npub, toolName = 'summarise' } = msg.data;
       
       // Process each day's content
       const vmResults = [];

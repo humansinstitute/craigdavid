@@ -1,7 +1,7 @@
 [
   {
     "filename": "250917-events.json",
-    "content": "Had to throw away work from Monday with the “big PRD and plan approach”\n\nBut taking small incremental steps is working :)\nhttps://blossom.primal.net/e42026fbffc9298bd16c2abb63d2fee63e622b968ffeaa5b8cb57660eb655a2c.png. A customer context VM client talking to a customer context vm server - now we’re getting somewhere!\nhttps://blossom.primal.net/bdc29fd680457bfd73cd952f5fd9004ac8d5b3120b506492beaff9dd227058ef.png\nhttps://blossom.primal.net/77d1b22fad2497ed64709ec469bbdafe4b69b9043e0fa96be9f06f69b427cd8e.jpg. Alright let’s integrate it into the demo app\nhttps://blossom.primal.net/6635320ffd4211f8e303e6c0d6c80442baa3d44d5dbc5fe570722618659d046f.png. Bollocks. That was supposed to be a “custom” context VM client and server :)."
+    "content": "Had to throw away work from Monday with the “big PRD and plan approach”\n\nBut taking small incremental steps is working :)\nhttps://blossom.primal.net/e42026fbffc9298bd16c2abb63d2fee63e622b968ffeaa5b8cb57660eb655a2c.png. A customer context VM client talking to a customer context vm server - now we’re getting somewhere!\nhttps://blossom.primal.net/bdc29fd680457bfd73cd952f5fd9004ac8d5b3120b506492beaff9dd227058ef.png\nhttps://blossom.primal.net/77d1b22fad2497ed64709ec469bbdafe4b69b9043e0fa96be9f06f69b427cd8e.jpg. Alright let’s integrate it into the demo app\nhttps://blossom.primal.net/6635320ffd4211f8e303e6c0d6c80442baa3d44d5dbc5fe570722618659d046f.png. Bollocks. That was supposed to be a “custom” context VM client and server :). Debugging the context VM client integration\nhttps://blossom.primal.net/90fd36ab8639a21408ba1dc3f1f449e3e8a334ab420944eee3f0aef6cdba0302.jpg."
   },
   {
     "filename": "250916-events.json",
