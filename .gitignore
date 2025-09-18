@@ -71,6 +71,9 @@ cypress/screenshots/
 playwright-report/
 test-results/
 
+# Context VM output
+output/
+
 # Misc
 *.tgz
 *.swp
