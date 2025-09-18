@@ -17,7 +17,10 @@ export default function WeeklySongBanner({
   const weekly = useCraigWeeklySong(relays, craigHex, subjectHex, sinceTs);
   const [expanded, setExpanded] = useState(false);
 
-  if (!weekly) return null;
+  // Defensive guard: if the value we currently hold isn't tagged for this subject, don't render it.
+  const isForSubject = weekly?.tags?.some((t) => t[0] === "p" && t[1] === subjectHex) ?? false;
+
+  if (!weekly || !isForSubject) return null;
 
   const preview = truncate(weekly.content || "", 160);
 

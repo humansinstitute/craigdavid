@@ -2,7 +2,7 @@ import { onlyEvents } from "applesauce-relay";
 import { useObservableMemo } from "applesauce-react/hooks";
 import type { NostrEvent } from "nostr-tools";
 import { pool, eventStore } from "../../lib/applesauce";
-import { map, scan } from "rxjs";
+import { map, scan, startWith } from "rxjs";
 import { mapEventsToStore } from "applesauce-core";
 
 /**
@@ -39,6 +39,7 @@ export function useCraigWeeklySong(
           if (!latest) return evt;
           return (evt.created_at || 0) > (latest.created_at || 0) ? evt : latest;
         }, undefined as NostrEvent | undefined),
+        startWith(undefined),
         map((e) => e)
       );
   }, [craigHex, subjectHex, sinceTs, limit, relays.join("|")]);
