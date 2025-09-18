@@ -20,9 +20,53 @@ const processedFiles = new Set();
 // Startup timestamp - only process files modified after this time
 const STARTUP_TIME = Date.now();
 
+// Track files that existed at startup to avoid processing them
+const startupFiles = new Set();
+
 console.log('[Watcher] Context VM file watcher started');
 console.log(`[Watcher] Startup time: ${new Date(STARTUP_TIME).toISOString()}`);
 console.log(`[Watcher] Monitoring: ${OUTPUT_DIR}`);
+
+// Catalog existing files at startup to avoid processing them
+function catalogStartupFiles() {
+  try {
+    if (!fs.existsSync(OUTPUT_DIR)) {
+      return;
+    }
+    
+    const dirs = fs.readdirSync(OUTPUT_DIR).filter(dir => {
+      return dir.startsWith('npub') && fs.statSync(path.join(OUTPUT_DIR, dir)).isDirectory();
+    });
+    
+    for (const npub of dirs) {
+      const npubDir = path.join(OUTPUT_DIR, npub);
+      const justTextPath = path.join(npubDir, 'just_text.json');
+      const vmResultsPathLower = path.join(npubDir, 'vm_results.json');
+      const vmResultsPathUpper = path.join(npubDir, 'VM_results.json');
+      
+      if (fs.existsSync(justTextPath)) {
+        startupFiles.add(`${npub}:${justTextPath}`);
+        processedFiles.add(`${npub}:${justTextPath}`);
+      }
+      
+      if (fs.existsSync(vmResultsPathLower)) {
+        startupFiles.add(`${npub}:${vmResultsPathLower}:weekly`);
+        processedFiles.add(`${npub}:${vmResultsPathLower}:weekly`);
+      }
+      
+      if (fs.existsSync(vmResultsPathUpper)) {
+        startupFiles.add(`${npub}:${vmResultsPathUpper}:weekly`);
+        processedFiles.add(`${npub}:${vmResultsPathUpper}:weekly`);
+      }
+    }
+    
+    console.log(`[Watcher] Catalogued ${startupFiles.size} existing files at startup`);
+  } catch (e) {
+    console.error('[Watcher] Error cataloging startup files:', e);
+  }
+}
+
+catalogStartupFiles();
 
 async function processJustText(npub, justTextPath) {
   const cacheKey = `${npub}:${justTextPath}`;
@@ -252,7 +296,15 @@ function checkForNewFiles() {
       // If just_text.json exists but vm_results.json doesn't, process it (only if modified after startup)
       if (fs.existsSync(justTextPath) && !vmResultsPath) {
         const justTextStat = fs.statSync(justTextPath);
-        if (justTextStat.mtime.getTime() > STARTUP_TIME) {
+        const cacheKey = `${npub}:${justTextPath}`;
+        
+        // Only process files that are NEWER than startup time AND not already processed
+        const fileAge = justTextStat.mtime.getTime();
+        const isRecentFile = fileAge > STARTUP_TIME;
+        
+        console.log(`[Watcher] Debug just_text.json for ${npub}: exists=${fs.existsSync(justTextPath)}, vmResults=${!!vmResultsPath}, modified=${justTextStat.mtime.toISOString()}, startup=${new Date(STARTUP_TIME).toISOString()}, recent=${isRecentFile}, cached=${processedFiles.has(cacheKey)}`);
+        
+        if (isRecentFile && !processedFiles.has(cacheKey)) {
           console.log(`[Watcher] Found new just_text.json for ${npub} (modified ${justTextStat.mtime.toISOString()})`);
           // Wait a bit to ensure file is fully written
           setTimeout(() => processJustText(npub, justTextPath), PROCESSING_DELAY);
@@ -262,8 +314,19 @@ function checkForNewFiles() {
       // If vm_results.json exists (lower/upper), trigger weekly song processing (once) (only if modified after startup)
       if (vmResultsPath) {
         const vmResultsStat = fs.statSync(vmResultsPath);
-        if (vmResultsStat.mtime.getTime() > STARTUP_TIME) {
+        const cacheKey = `${npub}:${vmResultsPath}:weekly`;
+        
+        // Only process files that are NEWER than startup time AND not already processed
+        const fileAge = vmResultsStat.mtime.getTime();
+        const isRecentFile = fileAge > STARTUP_TIME;
+        
+        if (!processedFiles.has(cacheKey)) {
+          console.log(`[Watcher] Checking vm_results.json for ${npub}: modified ${vmResultsStat.mtime.toISOString()}, startup ${new Date(STARTUP_TIME).toISOString()}, recent: ${isRecentFile}`);
+        }
+        
+        if (isRecentFile && !processedFiles.has(cacheKey)) {
           console.log(`[Watcher] Found new vm_results.json for ${npub} (modified ${vmResultsStat.mtime.toISOString()})`);
+          processedFiles.add(cacheKey); // Add to cache immediately to prevent re-triggering
           setTimeout(() => processWeeklySong(npub, vmResultsPath), PROCESSING_DELAY);
         }
       }
