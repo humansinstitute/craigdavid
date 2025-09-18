@@ -37,6 +37,17 @@ async function processJustText(npub, justTextPath) {
       return;
     }
     
+    // Resolve subject hex (preferred from folder npub, fallback from just_text entries if present)
+    let subjectHex;
+    try {
+      const decoded = nip19.decode(npub);
+      if (decoded.type === 'npub' && typeof decoded.data === 'string') subjectHex = decoded.data;
+    } catch {}
+    if (!subjectHex) {
+      const candidate = justText.find(jt => typeof jt?.pubkey === 'string' && jt.pubkey.length === 64)?.pubkey;
+      if (candidate) subjectHex = candidate.toLowerCase();
+    }
+
     const vmResults = [];
     const toolName = process.env.CVM_TOOL || 'summarise';
     
@@ -67,8 +78,8 @@ async function processJustText(npub, justTextPath) {
       
       try {
         const vmResp = await withCraigDavid(async (c) => {
-          const result = await c.callTool(actualToolName, { dayInput: question });
-          const text = result?.content?.[0]?.text || JSON.stringify(result);
+          const res = await c.callTool(actualToolName, { dayInput: question, pubkey: subjectHex });
+          const text = res?.content?.[0]?.text || JSON.stringify(res);
           return text;
         });
         
@@ -127,7 +138,7 @@ async function processWeeklySong(npub, vmResultsPath) {
 
   try {
     const vmResults = JSON.parse(fs.readFileSync(vmResultsPath, 'utf8'));
-    if (!Array.isArray(vmResults) || vmResults.length === 0) {
+    if ((!Array.isArray(vmResults) && typeof vmResults !== 'object') || (Array.isArray(vmResults) && vmResults.length === 0)) {
       console.log(`[Watcher] Empty vm_results.json for ${npub}, skipping weekly song`);
       return;
     }
@@ -143,7 +154,7 @@ async function processWeeklySong(npub, vmResultsPath) {
       console.warn(`[Watcher] Could not decode subject hex from ${npub}. Weekly tool may still work with npub.`);
     }
 
-    const weeklyToolEnv = process.env.CVM_WEEKLY_TOOL || 'weekly_song';
+    const weeklyToolEnv = process.env.CVM_WEEKLY_TOOL || 'weekly_summary';
     let actualWeeklyTool = weeklyToolEnv;
 
     // Discover tools to confirm the weekly tool name
@@ -154,7 +165,7 @@ async function processWeeklySong(npub, vmResultsPath) {
       console.log(`[Watcher] Available tools: ${list.join(', ')}`);
 
       if (!available.has(actualWeeklyTool)) {
-        // Try to find a tool that looks like a weekly-song tool
+        // Try to find a tool that looks like a weekly tool
         const guess = list.find(n => /weekly/i.test(n));
         if (guess) {
           actualWeeklyTool = guess;
@@ -170,37 +181,15 @@ async function processWeeklySong(npub, vmResultsPath) {
       console.error('[Watcher] Failed to list tools for weekly song:', e.message);
     }
 
-    // Build a concise weekly prompt from daily vm results
-    const summaries = vmResults
-      .filter(r => r && r.response && r.dayFile)
-      .map(r => ({ day: r.dayFile.replace('-events.json',''), summary: r.response }))
-      .sort((a, b) => a.day.localeCompare(b.day));
-
-    const prompt = `Create and publish a weekly-song post for subject ${npub}${subjectHex ? ` (hex ${subjectHex})` : ''}.\n` +
-      `Use the following daily summaries as source material (JSON array):\n` +
-      `${JSON.stringify(summaries)}`;
+    // weeklyInput should be the raw stringified vm_results.json
+    const weeklyInput = fs.readFileSync(vmResultsPath, 'utf8');
 
     let weeklyRespText;
     try {
       weeklyRespText = await withCraigDavid(async (c) => {
-        // Try a few argument shapes for robustness
-        const tryArgs = [
-          { weeklyInput: prompt, subjectHex },
-          { input: prompt, subjectHex },
-          { prompt, subjectHex },
-          { weeklyInput: prompt, subject: subjectHex || npub },
-        ];
-        let last;
-        for (const args of tryArgs) {
-          try {
-            const res = await c.callTool(actualWeeklyTool, args);
-            const text = res?.content?.[0]?.text || JSON.stringify(res);
-            return text;
-          } catch (e) {
-            last = e;
-          }
-        }
-        if (last) throw last; // surface the last error
+        const res = await c.callTool(actualWeeklyTool, { weeklyInput, pubkey: subjectHex });
+        const text = res?.content?.[0]?.text || JSON.stringify(res);
+        return text;
       });
     } catch (e) {
       console.error(`[Watcher] ✗ Weekly song failed for ${npub}:`, e.message);
@@ -250,16 +239,20 @@ function checkForNewFiles() {
     for (const npub of dirs) {
       const npubDir = path.join(OUTPUT_DIR, npub);
       const justTextPath = path.join(npubDir, 'just_text.json');
-      const vmResultsPath = path.join(npubDir, 'vm_results.json');
+      const vmResultsPathLower = path.join(npubDir, 'vm_results.json');
+      const vmResultsPathUpper = path.join(npubDir, 'VM_results.json');
+      const vmResultsPath = fs.existsSync(vmResultsPathLower)
+        ? vmResultsPathLower
+        : (fs.existsSync(vmResultsPathUpper) ? vmResultsPathUpper : null);
       
       // If just_text.json exists but vm_results.json doesn't, process it
-      if (fs.existsSync(justTextPath) && !fs.existsSync(vmResultsPath)) {
+      if (fs.existsSync(justTextPath) && !vmResultsPath) {
         // Wait a bit to ensure file is fully written
         setTimeout(() => processJustText(npub, justTextPath), PROCESSING_DELAY);
       }
 
-      // If vm_results.json exists, trigger weekly song processing (once)
-      if (fs.existsSync(vmResultsPath)) {
+      // If vm_results.json exists (lower/upper), trigger weekly song processing (once)
+      if (vmResultsPath) {
         setTimeout(() => processWeeklySong(npub, vmResultsPath), PROCESSING_DELAY);
       }
     }

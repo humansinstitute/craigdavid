@@ -74,8 +74,17 @@ app.post('/api/export-events', async (req, res) => {
           : [];
         const normalized = texts.map(t => /[.!?]$/.test(t) ? t : t + '.');
         const joined = normalized.join(' ');
+        // extract day’s author hex if consistent across events
+        let pubkey = undefined;
+        if (Array.isArray(arr) && arr.length > 0) {
+          const p0 = arr[0]?.pubkey;
+          if (typeof p0 === 'string' && p0.length === 64) {
+            const allSame = arr.every(ev => ev?.pubkey === p0);
+            if (allSame) pubkey = p0.toLowerCase();
+          }
+        }
         console.log(`[just_text] ${path.basename(w.file)} -> ${joined}`);
-        justText.push({ filename: path.basename(w.file), content: joined });
+        justText.push({ filename: path.basename(w.file), content: joined, pubkey });
       } catch (e) {
         console.warn('Failed to build just_text for', w.file, e);
       }
