@@ -72,7 +72,24 @@ async function processJustText(npub, justTextPath) {
         });
         
         console.log(`[Watcher] ✓ Success for ${jt.filename}`);
-        vmResults.push({ dayFile: jt.filename, tool: actualToolName, response: vmResp });
+        
+        // Parse structured response to extract eventID
+        let parsedResponse;
+        let eventID = null;
+        try {
+          parsedResponse = JSON.parse(vmResp);
+          eventID = parsedResponse.eventID || null;
+        } catch (e) {
+          // If parsing fails, treat as plain text response
+          parsedResponse = { summary: vmResp, eventID: null, published: false };
+        }
+        
+        vmResults.push({ 
+          dayFile: jt.filename, 
+          tool: actualToolName, 
+          response: parsedResponse.summary || vmResp,
+          eventID: eventID
+        });
       } catch (e) {
         console.error(`[Watcher] ✗ Failed for ${jt.filename}:`, e.message);
         vmResults.push({ dayFile: jt.filename, tool: actualToolName, error: String(e) });

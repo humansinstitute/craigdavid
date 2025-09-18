@@ -9,9 +9,11 @@ import { take, takeUntil, timer } from "rxjs";
 import { getInboxes, getOutboxes, mergeRelaySets, getProfilePicture } from "applesauce-core/helpers";
 import { mapEventsToStore } from "applesauce-core";
 import { useSevenDayTimeline } from "./useSevenDayTimeline";
-import EventCard from "../../components/EventCard/EventCard";
 import { useObservableMemo } from "applesauce-react/hooks";
 import BuildSongForm from "../../components/BuildSongForm";
+import { useCraigDailySummaries } from "./useCraigDailySummaries";
+import DailyColumn from "./DailyColumn";
+import type { NostrEvent } from "nostr-tools";
 
 type Props = { initialHex?: string; showBuildSongForm?: boolean };
 
@@ -66,11 +68,15 @@ export default function SevenDays({ initialHex, showBuildSongForm }: Props) {
   );
   const craigPicture = getProfilePicture(craigProfile, craigHex ? `https://robohash.org/${craigHex}.png` : undefined);
 
+  // Craig David daily summaries for this subject
+  const summaries = useCraigDailySummaries(craigRelays, craigHex, hex, sinceTs, 200);
+
   // Deep link auto-load
   useEffect(() => {
     if (initialHex) {
-      const now = Math.floor(Date.now() / 1000);
-      setSinceTs(now - 7 * 24 * 60 * 60);
+      const now = new Date();
+      const start = startOfUTCDay(addDaysUTC(now, -6)); // 7-day window starting 6 days ago
+      setSinceTs(Math.floor(start.getTime() / 1000));
       setHex(initialHex);
       const unsub = discoverRelays(initialHex);
       return () => unsub();
@@ -110,9 +116,47 @@ export default function SevenDays({ initialHex, showBuildSongForm }: Props) {
     }
   }
 
+  // Compute last 7 day buckets (oldest on the left, today on the right)
+  const dayBuckets = useMemo(() => {
+    const today = startOfUTCDay(new Date());
+    const buckets: { date: string; label: string; start: Date; end: Date }[] = [];
+    for (let i = 6; i >= 0; i--) {
+      const d = addDaysUTC(today, -i);
+      const date = toISODate(d);
+      const label = i === 0 ? "Today" : formatShortLabel(d);
+      buckets.push({ date, label, start: d, end: endOfUTCDay(d) });
+    }
+    return buckets;
+  }, []);
+
+  // Group events by YYYY-MM-DD (UTC) and order newest first within the day
+  const eventsByDay = useMemo(() => {
+    const map: Record<string, NostrEvent[]> = {};
+    if (timeline) {
+      for (const evt of timeline) {
+        if (!evt.created_at) continue;
+        const date = toISODate(new Date(evt.created_at * 1000));
+        if (!map[date]) map[date] = [] as NostrEvent[];
+        map[date].push(evt as unknown as NostrEvent);
+      }
+      for (const k of Object.keys(map)) {
+        map[k].sort((a, b) => (b.created_at || 0) - (a.created_at || 0));
+      }
+    }
+    return map;
+  }, [timeline?.length, timeline]);
+
+  // Index summaries by date
+  const summaryByDay = useMemo(() => {
+    const m: Record<string, NostrEvent | undefined> = {};
+    if (summaries) {
+      for (const s of summaries) m[s.date] = s.event as unknown as NostrEvent;
+    }
+    return m;
+  }, [summaries?.length, summaries]);
 
   return (
-    <div className="max-w-md mx-auto p-4">
+    <div className="w-full p-4">
       {/* Do not render local H1; global Header handles title/tagline. */}
 
       {!isDeepLinked && (
@@ -140,12 +184,43 @@ export default function SevenDays({ initialHex, showBuildSongForm }: Props) {
       {/* Build Song form appears above the events stream when requested (e.g., /npub...) */}
       {showBuildSongForm && <BuildSongForm npub={npub} events={timeline} />}
 
-      <div className="flex flex-col gap-2">
-        {!timeline?.length && <div className="opacity-70">No events loaded.</div>}
-        {timeline?.map((evt) => (
-          <EventCard key={evt.id} event={evt} />
-        ))}
-      </div>
+      {isDeepLinked && (
+        <div className="overflow-x-auto">
+          <div className="flex flex-row gap-4 min-w-max">
+            {dayBuckets.map((b) => (
+              <DailyColumn
+                key={b.date}
+                date={b.date}
+                label={b.label}
+                summary={summaryByDay[b.date]}
+                events={eventsByDay[b.date] || []}
+              />
+            ))}
+          </div>
+        </div>
+      )}
+
+      {!isDeepLinked && <div className="opacity-70">Enter an npub to view the last seven days.</div>}
     </div>
   );
+}
+
+// --- utils ---
+function toISODate(d: Date): string {
+  return new Date(Date.UTC(d.getUTCFullYear(), d.getUTCMonth(), d.getUTCDate())).toISOString().slice(0, 10);
+}
+function startOfUTCDay(d: Date): Date {
+  return new Date(Date.UTC(d.getUTCFullYear(), d.getUTCMonth(), d.getUTCDate(), 0, 0, 0));
+}
+function endOfUTCDay(d: Date): Date {
+  return new Date(Date.UTC(d.getUTCFullYear(), d.getUTCMonth(), d.getUTCDate(), 23, 59, 59, 999));
+}
+function addDaysUTC(d: Date, days: number): Date {
+  const nd = new Date(d.getTime());
+  nd.setUTCDate(nd.getUTCDate() + days);
+  return startOfUTCDay(nd);
+}
+function formatShortLabel(d: Date): string {
+  const wk = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"][d.getUTCDay()];
+  return `${wk} ${d.getUTCDate()}`;
 }

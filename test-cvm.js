@@ -58,8 +58,29 @@ async function testCVM() {
         const text = result?.content?.[0]?.text || JSON.stringify(result);
         return text;
       });
-      console.log(`[CVM] ✓ Success for ${jt.filename}: ${vmResp.substring(0, 100)}...`);
-      vmResults.push({ dayFile: jt.filename, tool: toolName, response: vmResp });
+      
+      // Parse structured response to extract eventID
+      let parsedResponse;
+      let eventID = null;
+      try {
+        parsedResponse = JSON.parse(vmResp);
+        eventID = parsedResponse.eventID || null;
+      } catch (e) {
+        // If parsing fails, treat as plain text response
+        parsedResponse = { summary: vmResp, eventID: null, published: false };
+      }
+      
+      console.log(`[CVM] ✓ Success for ${jt.filename}: ${(parsedResponse.summary || vmResp).substring(0, 100)}...`);
+      if (eventID) {
+        console.log(`[CVM] Event ID: ${eventID}`);
+      }
+      
+      vmResults.push({ 
+        dayFile: jt.filename, 
+        tool: toolName, 
+        response: parsedResponse.summary || vmResp,
+        eventID: eventID
+      });
     } catch (e) {
       console.error(`[CVM] ✗ Context VM call failed for ${jt.filename}:`, e.message);
       console.error(`[CVM] Stack trace for ${jt.filename}:`, e.stack);

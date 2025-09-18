@@ -23,10 +23,27 @@ async function main() {
       const question = `Please analyse and summarize the following daily content for ${npub} (day ${jt.filename.replace('-events.json','')}): ${jt.content}`;
       try {
         const vmResp = await withCraigDavid(async (c) => {
-          const result = await c.callTool(toolName, { question });
+          const result = await c.callTool(toolName, { dayInput: question });
           return result?.content?.[0]?.text || JSON.stringify(result);
         });
-        vmResults.push({ dayFile: jt.filename, tool: toolName, response: vmResp });
+        
+        // Parse structured response to extract eventID
+        let parsedResponse;
+        let eventID = null;
+        try {
+          parsedResponse = JSON.parse(vmResp);
+          eventID = parsedResponse.eventID || null;
+        } catch (e) {
+          // If parsing fails, treat as plain text response
+          parsedResponse = { summary: vmResp, eventID: null, published: false };
+        }
+        
+        vmResults.push({ 
+          dayFile: jt.filename, 
+          tool: toolName, 
+          response: parsedResponse.summary || vmResp,
+          eventID: eventID
+        });
       } catch (e) {
         vmResults.push({ dayFile: jt.filename, tool: toolName, error: String(e) });
       }

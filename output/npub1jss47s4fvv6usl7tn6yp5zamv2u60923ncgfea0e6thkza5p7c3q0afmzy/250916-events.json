@@ -1,0 +1,24 @@
+[
+  {
+    "content": "👀\nnostr:nevent1qqsxa6ge7gssyazckj6k059aymr297r8p8zyeuvlsynrmvt0av3u49cpzemhxue69uhhyetvv9ujuurjd9kkzmpwdejhg8wqv6q",
+    "created_at": 1758032456,
+    "id": "7735aa6de29447e7391529090dc23dc7e8dfabdb5dfcf0c1ed3149f1e746c52e",
+    "kind": 1,
+    "pubkey": "94215f42a96335c87fcb9e881a0bbb62b9a795519e109cf5f9d2ef617681f622",
+    "sig": "cc003db1306dc6a5329c6d284bbebfa689b80ef8b8d272388c42b10ed9237e26840a46bda51699ffbf4b9eca12591c3a92fcda466178c4d0afd4408ed0a43876",
+    "tags": [
+      [
+        "e",
+        "6ee919f221027458b4b567d0bd26c6a2f86709c44cf19f81263db16feb23ca97",
+        "wss://relay.primal.net",
+        "mention"
+      ],
+      [
+        "p",
+        "bbb5dda0e15567979f0543407bdc2033d6f0bbb30f72512a981cfdb2f09e2747",
+        "",
+        "mention"
+      ]
+    ]
+  }
+]

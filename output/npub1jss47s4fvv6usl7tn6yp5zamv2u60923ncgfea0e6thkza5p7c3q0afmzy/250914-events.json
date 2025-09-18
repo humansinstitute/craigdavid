@@ -1,0 +1,30 @@
+[
+  {
+    "content": "“People on twitter are dumb”\n\nNo lies detected!\nnostr:nevent1qqswj4has48snn0we7wpwfw4ghr3n7mm4zttacv9l4syr05hqstr7xgpramhxue69uh5ummnw3ezuetfde6kuer6wasku7nfvuh8xurpvdjschf6lm\nnostr:nevent1qqswj4has48snn0we7wpwfw4ghr3n7mm4zttacv9l4syr05hqstr7xgpramhxue69uh5ummnw3ezuetfde6kuer6wasku7nfvuh8xurpvdjschf6lm",
+    "created_at": 1757874955,
+    "id": "c5af3c79f6f1bcafa0cab98163fcddeef4e7e1afbe962459d3599f8ab40bbdd5",
+    "kind": 1,
+    "pubkey": "94215f42a96335c87fcb9e881a0bbb62b9a795519e109cf5f9d2ef617681f622",
+    "sig": "62b0280c9aa6da3d0d03c925583f6c43f97cabd41af4209c120089868e17d109d5f76bae5f9f9cea984186245d88ef59f6e3e49c253cf54a7b09669e95326a20",
+    "tags": [
+      [
+        "e",
+        "e956fd854f09cdeecf9c1725d545c719fb7ba896bee185fd6041be9704163f19",
+        "wss://Nostr.einundzwanzig.space",
+        "mention"
+      ],
+      [
+        "e",
+        "e956fd854f09cdeecf9c1725d545c719fb7ba896bee185fd6041be9704163f19",
+        "wss://Nostr.einundzwanzig.space",
+        "mention"
+      ],
+      [
+        "p",
+        "06830f6cb5925bd82cca59bda848f0056666dff046c5382963a997a234da40c5",
+        "",
+        "mention"
+      ]
+    ]
+  }
+]
