@@ -1,8 +1,9 @@
 import React from "react";
-import { BrowserRouter, Routes, Route, useParams, Navigate } from "react-router-dom";
+import { BrowserRouter, Routes, Route, useParams, Navigate, useLocation } from "react-router-dom";
 import { nip19 } from "nostr-tools";
 import SevenDays from "./features/seven-days/SevenDays";
 import CraigAvatar from "./components/CraigAvatar";
+import DynamicHeader from "./components/DynamicHeader";
 import "./styles.css";
 
 function DeepLinkRouter() {
@@ -31,7 +32,7 @@ function DeepLinkRouter() {
 export default function App() {
   return (
     <BrowserRouter>
-      <Header />
+      <DynamicHeaderWrapper />
       <main>
         <Routes>
           <Route path="/" element={<Home />} />
@@ -43,15 +44,31 @@ export default function App() {
   );
 }
 
-function Header() {
-  return (
-    <header className="text-center mt-4 mb-4">
-      <CraigAvatar />
-      <h1 className="text-4xl md:text-5xl font-extrabold tracking-tight">Craig David</h1>
-      <p className="opacity-80">In the year 2,000 Craiiig David had quite the week. How does yours compare?</p>
-    </header>
-  );
+function DynamicHeaderWrapper() {
+  const location = useLocation();
+  const pathId = location.pathname.slice(1); // Remove leading slash
+  
+  let userHex: string | undefined;
+  let userNpub: string | undefined;
+  
+  if (pathId) {
+    try {
+      const decoded = nip19.decode(pathId);
+      if (decoded.type === "npub") {
+        userHex = decoded.data as string;
+        userNpub = pathId;
+      } else if (decoded.type === "nprofile") {
+        userHex = (decoded.data as any).pubkey as string;
+        userNpub = nip19.npubEncode(userHex);
+      }
+    } catch {
+      // Invalid identifier, show default header
+    }
+  }
+  
+  return <DynamicHeader userHex={userHex} userNpub={userNpub} />;
 }
+
 
 export function ProfileView({ identifier }: { identifier: string }) {
   return <section className="max-w-md mx-auto p-4">Profile for {identifier}</section>;

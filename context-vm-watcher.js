@@ -17,7 +17,11 @@ const PROCESSING_DELAY = 1000; // Wait 1 second after file detection before proc
 // Keep track of processed files to avoid reprocessing
 const processedFiles = new Set();
 
+// Startup timestamp - only process files modified after this time
+const STARTUP_TIME = Date.now();
+
 console.log('[Watcher] Context VM file watcher started');
+console.log(`[Watcher] Startup time: ${new Date(STARTUP_TIME).toISOString()}`);
 console.log(`[Watcher] Monitoring: ${OUTPUT_DIR}`);
 
 async function processJustText(npub, justTextPath) {
@@ -245,15 +249,23 @@ function checkForNewFiles() {
         ? vmResultsPathLower
         : (fs.existsSync(vmResultsPathUpper) ? vmResultsPathUpper : null);
       
-      // If just_text.json exists but vm_results.json doesn't, process it
+      // If just_text.json exists but vm_results.json doesn't, process it (only if modified after startup)
       if (fs.existsSync(justTextPath) && !vmResultsPath) {
-        // Wait a bit to ensure file is fully written
-        setTimeout(() => processJustText(npub, justTextPath), PROCESSING_DELAY);
+        const justTextStat = fs.statSync(justTextPath);
+        if (justTextStat.mtime.getTime() > STARTUP_TIME) {
+          console.log(`[Watcher] Found new just_text.json for ${npub} (modified ${justTextStat.mtime.toISOString()})`);
+          // Wait a bit to ensure file is fully written
+          setTimeout(() => processJustText(npub, justTextPath), PROCESSING_DELAY);
+        }
       }
 
-      // If vm_results.json exists (lower/upper), trigger weekly song processing (once)
+      // If vm_results.json exists (lower/upper), trigger weekly song processing (once) (only if modified after startup)
       if (vmResultsPath) {
-        setTimeout(() => processWeeklySong(npub, vmResultsPath), PROCESSING_DELAY);
+        const vmResultsStat = fs.statSync(vmResultsPath);
+        if (vmResultsStat.mtime.getTime() > STARTUP_TIME) {
+          console.log(`[Watcher] Found new vm_results.json for ${npub} (modified ${vmResultsStat.mtime.toISOString()})`);
+          setTimeout(() => processWeeklySong(npub, vmResultsPath), PROCESSING_DELAY);
+        }
       }
     }
   } catch (e) {
