@@ -5,6 +5,7 @@ import fs from 'fs';
 import path from 'path';
 import { fileURLToPath } from 'url';
 import { withCraigDavid } from './context_vm.js';
+import { nip19 } from 'nostr-tools';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -110,6 +111,128 @@ async function processJustText(npub, justTextPath) {
   }
 }
 
+async function processWeeklySong(npub, vmResultsPath) {
+  const cacheKey = `${npub}:${vmResultsPath}:weekly`;
+  if (processedFiles.has(cacheKey)) return;
+
+  // Avoid reprocessing if weekly output already exists
+  const weeklyOutPath = path.join(path.dirname(vmResultsPath), 'weekly_vm_results.json');
+  if (fs.existsSync(weeklyOutPath)) {
+    processedFiles.add(cacheKey);
+    return;
+  }
+
+  console.log(`[Watcher] Processing ${npub}/vm_results.json for weekly song`);
+  processedFiles.add(cacheKey);
+
+  try {
+    const vmResults = JSON.parse(fs.readFileSync(vmResultsPath, 'utf8'));
+    if (!Array.isArray(vmResults) || vmResults.length === 0) {
+      console.log(`[Watcher] Empty vm_results.json for ${npub}, skipping weekly song`);
+      return;
+    }
+
+    // Determine subject hex from npub folder name
+    let subjectHex = undefined;
+    try {
+      const decoded = nip19.decode(npub);
+      if (decoded.type === 'npub' && typeof decoded.data === 'string') subjectHex = decoded.data;
+    } catch {}
+
+    if (!subjectHex) {
+      console.warn(`[Watcher] Could not decode subject hex from ${npub}. Weekly tool may still work with npub.`);
+    }
+
+    const weeklyToolEnv = process.env.CVM_WEEKLY_TOOL || 'weekly_song';
+    let actualWeeklyTool = weeklyToolEnv;
+
+    // Discover tools to confirm the weekly tool name
+    try {
+      const tools = await withCraigDavid(async (c) => c.listTools());
+      const list = (tools?.tools || []).map(t => t.name);
+      const available = new Set(list);
+      console.log(`[Watcher] Available tools: ${list.join(', ')}`);
+
+      if (!available.has(actualWeeklyTool)) {
+        // Try to find a tool that looks like a weekly-song tool
+        const guess = list.find(n => /weekly/i.test(n));
+        if (guess) {
+          actualWeeklyTool = guess;
+          console.log(`[Watcher] Using guessed weekly tool: ${actualWeeklyTool}`);
+        } else if (list[0]) {
+          actualWeeklyTool = list[0];
+          console.log(`[Watcher] Using fallback tool: ${actualWeeklyTool}`);
+        }
+      } else {
+        console.log(`[Watcher] Using weekly tool: ${actualWeeklyTool}`);
+      }
+    } catch (e) {
+      console.error('[Watcher] Failed to list tools for weekly song:', e.message);
+    }
+
+    // Build a concise weekly prompt from daily vm results
+    const summaries = vmResults
+      .filter(r => r && r.response && r.dayFile)
+      .map(r => ({ day: r.dayFile.replace('-events.json',''), summary: r.response }))
+      .sort((a, b) => a.day.localeCompare(b.day));
+
+    const prompt = `Create and publish a weekly-song post for subject ${npub}${subjectHex ? ` (hex ${subjectHex})` : ''}.\n` +
+      `Use the following daily summaries as source material (JSON array):\n` +
+      `${JSON.stringify(summaries)}`;
+
+    let weeklyRespText;
+    try {
+      weeklyRespText = await withCraigDavid(async (c) => {
+        // Try a few argument shapes for robustness
+        const tryArgs = [
+          { weeklyInput: prompt, subjectHex },
+          { input: prompt, subjectHex },
+          { prompt, subjectHex },
+          { weeklyInput: prompt, subject: subjectHex || npub },
+        ];
+        let last;
+        for (const args of tryArgs) {
+          try {
+            const res = await c.callTool(actualWeeklyTool, args);
+            const text = res?.content?.[0]?.text || JSON.stringify(res);
+            return text;
+          } catch (e) {
+            last = e;
+          }
+        }
+        if (last) throw last; // surface the last error
+      });
+    } catch (e) {
+      console.error(`[Watcher] ✗ Weekly song failed for ${npub}:`, e.message);
+      fs.writeFileSync(weeklyOutPath, JSON.stringify({ error: String(e), tool: actualWeeklyTool }, null, 2), 'utf8');
+      return;
+    }
+
+    // Parse possible structured response
+    let parsed;
+    let eventID = null;
+    try {
+      parsed = JSON.parse(weeklyRespText);
+      eventID = parsed.eventID || null;
+    } catch {
+      parsed = { summary: weeklyRespText, eventID: null, published: false };
+    }
+
+    const weeklyOut = {
+      tool: actualWeeklyTool,
+      subject: { npub, hex: subjectHex || null },
+      response: parsed.summary || weeklyRespText,
+      eventID,
+    };
+
+    fs.writeFileSync(weeklyOutPath, JSON.stringify(weeklyOut, null, 2), 'utf8');
+    console.log(`[Watcher] ✓ Weekly song completed for ${npub}${eventID ? `, event ${eventID}` : ''}`);
+    console.log(`[Watcher] Results written to: ${weeklyOutPath}`);
+  } catch (e) {
+    console.error(`[Watcher] Error processing weekly song for ${npub}:`, e);
+  }
+}
+
 function checkForNewFiles() {
   try {
     // Ensure output directory exists
@@ -123,15 +246,21 @@ function checkForNewFiles() {
       return dir.startsWith('npub') && fs.statSync(path.join(OUTPUT_DIR, dir)).isDirectory();
     });
     
-    // Check each npub directory for just_text.json
+    // Check each npub directory for just_text.json and vm_results.json
     for (const npub of dirs) {
-      const justTextPath = path.join(OUTPUT_DIR, npub, 'just_text.json');
-      const vmResultsPath = path.join(OUTPUT_DIR, npub, 'vm_results.json');
+      const npubDir = path.join(OUTPUT_DIR, npub);
+      const justTextPath = path.join(npubDir, 'just_text.json');
+      const vmResultsPath = path.join(npubDir, 'vm_results.json');
       
       // If just_text.json exists but vm_results.json doesn't, process it
       if (fs.existsSync(justTextPath) && !fs.existsSync(vmResultsPath)) {
         // Wait a bit to ensure file is fully written
         setTimeout(() => processJustText(npub, justTextPath), PROCESSING_DELAY);
+      }
+
+      // If vm_results.json exists, trigger weekly song processing (once)
+      if (fs.existsSync(vmResultsPath)) {
+        setTimeout(() => processWeeklySong(npub, vmResultsPath), PROCESSING_DELAY);
       }
     }
   } catch (e) {
