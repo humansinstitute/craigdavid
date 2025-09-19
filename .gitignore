@@ -5,6 +5,7 @@ build/
 .tmp/
 .temp/
 .temp*
+archive/
 
 # Vite cache (stored in node_modules)
 # node_modules/.vite/  # contained within node_modules

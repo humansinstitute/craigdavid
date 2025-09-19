@@ -3,6 +3,8 @@ import express from 'express';
 import path from 'path';
 import { fileURLToPath } from 'url';
 import fs from 'fs';
+import crypto from 'crypto';
+import { Readable } from 'stream';
 import { spawn } from 'child_process';
 
 const app = express();
@@ -144,6 +146,15 @@ app.post('/api/export-events', async (req, res) => {
     const justTextPath = path.join(outDir, 'just_text.json');
     fs.writeFileSync(justTextPath, JSON.stringify(justText, null, 2), 'utf8');
 
+    // Kick off media prefetch for montage (non-blocking)
+    try {
+      prefetchMediaForMontage(npub, events).catch((e) => {
+        console.warn('prefetchMediaForMontage error:', e);
+      });
+    } catch (e) {
+      console.warn('Failed to start media prefetch task:', e);
+    }
+
     // Back-compat: include `path` of first file if present
     const pathCompat = written.length ? written[0].file : null;
 
@@ -261,3 +272,185 @@ app.get(/(.*)/, serveIndex);
 
 const port = 3080;
 app.listen(port, () => console.log(`CRAIG server listening on :${port}`));
+
+// ------------------ Montage media prefetch helpers ------------------
+const MAX_MEDIA_BYTES = (Number(process.env.PREFETCH_MAX_MEDIA_MB || 50) || 50) * 1024 * 1024; // MB
+const MEDIA_EXTS = new Set(['.jpg', '.jpeg', '.png', '.gif', '.webp', '.mp4', '.mov', '.webm', '.mkv']);
+
+function extractUrlsFromEvents(events) {
+  const urls = new Set();
+  const urlRe = /https?:\/\/[^\s<>"'()\[\]]+/gi;
+  for (const e of Array.isArray(events) ? events : []) {
+    // content URLs
+    const c = typeof e?.content === 'string' ? e.content : '';
+    if (c) {
+      const matches = c.match(urlRe) || [];
+      for (let u of matches) {
+        u = u.replace(/[)>"'\]]+$/, '');
+        urls.add(u);
+      }
+    }
+    // tags URLs (common patterns: 'r', 'url', 'imeta')
+    const tags = Array.isArray(e?.tags) ? e.tags : [];
+    for (const t of tags) {
+      if (!Array.isArray(t) || t.length < 2) continue;
+      for (const part of t.slice(1)) {
+        if (typeof part === 'string' && /^https?:\/\//i.test(part)) {
+          urls.add(part);
+        }
+      }
+    }
+  }
+  return Array.from(urls);
+}
+
+function urlLooksLikeMedia(u) {
+  try {
+    const ext = path.extname(new URL(u).pathname).toLowerCase();
+    if (MEDIA_EXTS.has(ext)) return true;
+  } catch {}
+  return false; // may still be media; Content-Type check later
+}
+
+function safeBasenameFromUrl(u, fallbackExt = '') {
+  try {
+    const url = new URL(u);
+    const name = path.basename(url.pathname) || crypto.createHash('sha1').update(u).digest('hex');
+    return name;
+  } catch {
+    return crypto.createHash('sha1').update(u).digest('hex') + fallbackExt;
+  }
+}
+
+async function fetchHead(url) {
+  try {
+    const r = await fetch(url, { method: 'HEAD' });
+    return r;
+  } catch {
+    return null;
+  }
+}
+
+async function downloadWithLimit(url, destPath) {
+  // Pre-check via HEAD for size and type if available
+  const head = await fetchHead(url);
+  let contentLength = undefined;
+  let contentType = undefined;
+  if (head && head.ok) {
+    contentType = head.headers.get('content-type') || undefined;
+    const len = head.headers.get('content-length');
+    if (len && Number.isFinite(Number(len))) contentLength = Number(len);
+    if (contentLength != null && contentLength > MAX_MEDIA_BYTES) {
+      const reason = `too large (${contentLength} bytes)`;
+      console.log(`[prefetch] Skip ${reason}: ${url}`);
+      return { ok: false, reason, contentLength, contentType };
+    }
+    if (contentType && !/^image\//i.test(contentType) && !/^video\//i.test(contentType)) {
+      // Continue anyway; some servers HEAD lie. We'll re-evaluate during GET
+    }
+  }
+
+  const res = await fetch(url);
+  if (!res.ok || !res.body) {
+    const reason = `GET ${res.status}`;
+    console.log(`[prefetch] GET failed: ${url} -> ${res.status}`);
+    return { ok: false, reason, contentLength, contentType };
+  }
+
+  // Choose extension based on content-type if missing
+  let finalPath = destPath;
+  const ct = res.headers.get('content-type') || contentType || '';
+  const isMediaType = /^image\//i.test(ct) || /^video\//i.test(ct);
+  if (!isMediaType && !urlLooksLikeMedia(url)) {
+    const reason = `non-media content-type: ${ct || 'unknown'}`;
+    console.log(`[prefetch] Skip (${reason}): ${url}`);
+    return { ok: false, reason, contentLength, contentType: ct };
+  }
+  let ext = path.extname(destPath);
+  if (!ext) {
+    if (/image\/jpeg/i.test(ct)) ext = '.jpg';
+    else if (/image\/png/i.test(ct)) ext = '.png';
+    else if (/image\/gif/i.test(ct)) ext = '.gif';
+    else if (/image\/webp/i.test(ct)) ext = '.webp';
+    else if (/video\/mp4/i.test(ct)) ext = '.mp4';
+    else if (/video\/webm/i.test(ct)) ext = '.webm';
+    else if (/video\/quicktime/i.test(ct)) ext = '.mov';
+    if (ext) finalPath = destPath + ext;
+  }
+
+  // Stream to file with size limit (convert WHATWG stream to Node stream if needed)
+  const bodyStream = (res.body && typeof res.body.getReader === 'function')
+    ? Readable.fromWeb(res.body)
+    : res.body;
+
+  let total = 0;
+  await new Promise(async (resolve, reject) => {
+    const file = fs.createWriteStream(finalPath);
+    bodyStream.on('data', (chunk) => {
+      total += chunk.length;
+      if (total > MAX_MEDIA_BYTES) {
+        bodyStream.destroy(new Error('File exceeds 50MB limit'));
+      }
+    });
+    bodyStream.on('error', (err) => {
+      try { file.destroy(); fs.unlinkSync(finalPath); } catch {}
+      reject(err);
+    });
+    file.on('error', (err) => {
+      try { file.destroy(); fs.unlinkSync(finalPath); } catch {}
+      reject(err);
+    });
+    file.on('finish', resolve);
+    bodyStream.pipe(file);
+  });
+
+  console.log('[prefetch] Saved', finalPath);
+  return { ok: true, path: finalPath, bytes: total, contentType: ct, contentLength };
+}
+
+async function prefetchMediaForMontage(npub, events) {
+  const npubDir = path.join(__dirname, 'output', npub);
+  const montageDir = path.join(npubDir, 'montage');
+  fs.mkdirSync(montageDir, { recursive: true });
+
+  const links = extractUrlsFromEvents(events);
+  // Process all discovered links; filtering happens via HEAD/GET media checks
+  const candidates = links;
+
+  // Persist events.json with links
+  const eventsJsonPath = path.join(montageDir, 'events.json');
+  const payload = { sourceCount: Array.isArray(events) ? events.length : 0, linkCount: candidates.length, links: candidates };
+  fs.writeFileSync(eventsJsonPath, JSON.stringify(payload, null, 2), 'utf8');
+  console.log(`[prefetch] Wrote ${eventsJsonPath} (${candidates.length} links)`);
+
+  // Start downloads sequentially with small concurrency
+  const concurrency = 3;
+  const queue = candidates.slice();
+  const results = [];
+  const workers = Array.from({ length: concurrency }, async () => {
+    while (queue.length) {
+      const url = queue.shift();
+      if (!url) break;
+      try {
+        const base = safeBasenameFromUrl(url);
+        let dest = path.join(montageDir, base);
+        // Avoid overwriting existing
+        if (fs.existsSync(dest)) {
+          const alt = crypto.createHash('sha1').update(url).digest('hex');
+          dest = path.join(montageDir, alt);
+        }
+        const r = await downloadWithLimit(url, dest);
+        results.push({ url, ...r });
+      } catch (e) {
+        console.log('[prefetch] Failed', url, e?.message || e);
+        results.push({ url, ok: false, reason: e?.message || 'error' });
+      }
+    }
+  });
+  await Promise.all(workers);
+  // Persist prefetch status
+  try {
+    const status = { completedAt: new Date().toISOString(), maxBytes: MAX_MEDIA_BYTES, results };
+    fs.writeFileSync(path.join(montageDir, 'prefetch.json'), JSON.stringify(status, null, 2), 'utf8');
+  } catch {}
+}
