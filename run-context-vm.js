@@ -23,7 +23,11 @@ async function main() {
       const question = `Please analyse and summarize the following daily content for ${npub} (day ${jt.filename.replace('-events.json','')}): ${jt.content}`;
       try {
         const vmResp = await withCraigDavid(async (c) => {
-          const result = await c.callTool(toolName, { dayInput: question });
+          const result = await c.callTool(
+            toolName,
+            { dayInput: question },
+            { onProgress: (p) => console.log(`[CVM] Progress ${jt.filename}:`, JSON.stringify(p)) }
+          );
           return result?.content?.[0]?.text || JSON.stringify(result);
         });
         

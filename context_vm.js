@@ -6,6 +6,9 @@ import { NostrClientTransport, PrivateKeySigner, SimpleRelayPool } from '@contex
 const CRAIG_DAVID_PUBKEY = process.env.CVM_SERVER_PUBKEY || 'ce6ba07d0f2bba5eac5cc17dee0c7bf05761a410a70814c173e9a7e8f9ec4606';
 const CLIENT_PRIVATE_KEY_HEX = process.env.CRAIG_DAVID || process.env.CLIENT_PRIVATE_KEY || '';
 const CVM_DEBUG = process.env.CVM_DEBUG === '1' || process.env.CVM_DEBUG === 'true';
+const REQ_TIMEOUT = Number(process.env.CVM_REQUEST_TIMEOUT_MS || process.env.MCP_REQUEST_TIMEOUT_MS || 120000); // default 120s
+const MAX_TOTAL_TIMEOUT = Number(process.env.CVM_MAX_TOTAL_TIMEOUT_MS || 0) || undefined; // unset means no cap
+const RESET_ON_PROGRESS = process.env.CVM_RESET_TIMEOUT_ON_PROGRESS === '1' || process.env.CVM_RESET_TIMEOUT_ON_PROGRESS === 'true';
 
 const DEFAULT_RELAYS = [
   'wss://relay.contextvm.org',
@@ -56,13 +59,18 @@ export class CraigDavidClient {
 
   async listTools() {
     if (!this.connected) throw new Error('Not connected to Craig David');
-    return this.mcpClient.listTools();
+    return this.mcpClient.listTools(undefined, { timeout: REQ_TIMEOUT, maxTotalTimeout: MAX_TOTAL_TIMEOUT, resetTimeoutOnProgress: RESET_ON_PROGRESS });
   }
 
-  async callTool(name, args) {
+  async callTool(name, args, options = {}) {
     if (!this.connected) throw new Error('Not connected to Craig David');
     if (CVM_DEBUG) console.log(`[CVM] Calling tool: ${name}`);
-    const res = await this.mcpClient.callTool({ name, arguments: args });
+    const onprogress = options.onProgress || (RESET_ON_PROGRESS ? ((p) => { if (CVM_DEBUG) console.log('[CVM] Progress:', p); }) : undefined);
+    const res = await this.mcpClient.callTool(
+      { name, arguments: args },
+      undefined,
+      { timeout: REQ_TIMEOUT, maxTotalTimeout: MAX_TOTAL_TIMEOUT, resetTimeoutOnProgress: RESET_ON_PROGRESS, onprogress }
+    );
     if (CVM_DEBUG) console.log('[CVM] Raw response:', JSON.stringify(res));
     return res;
   }

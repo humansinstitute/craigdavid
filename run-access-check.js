@@ -42,7 +42,7 @@ async function main() {
     const rawText = await withCraigDavid(async (c) => {
       // Per cvm server API, cashu_access expects only { encodedToken }
       const args = toolToUse === 'cashu_access' ? { encodedToken: token } : { encodedToken: token };
-      const res = await c.callTool(toolToUse, args);
+      const res = await c.callTool(toolToUse, args, { onProgress: () => {} });
       const text = res?.content?.[0]?.text || JSON.stringify(res);
       return text;
     });

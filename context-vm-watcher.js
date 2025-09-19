@@ -16,6 +16,8 @@ const PROCESSING_DELAY = 1000; // Wait 1 second after file detection before proc
 
 // Keep track of processed files to avoid reprocessing
 const processedFiles = new Set();
+// Track scheduled weekly jobs to prevent duplicate scheduling without blocking processing
+const scheduledWeekly = new Set();
 
 // Startup timestamp - only process files modified after this time
 const STARTUP_TIME = Date.now();
@@ -126,7 +128,11 @@ async function processJustText(npub, justTextPath) {
       
       try {
         const vmResp = await withCraigDavid(async (c) => {
-          const res = await c.callTool(actualToolName, { dayInput: question, pubkey: subjectHex });
+          const res = await c.callTool(
+            actualToolName,
+            { dayInput: question, pubkey: subjectHex },
+            { onProgress: (p) => console.log(`[Watcher] Progress ${jt.filename}:`, JSON.stringify(p)) }
+          );
           const text = res?.content?.[0]?.text || JSON.stringify(res);
           return text;
         });
@@ -235,7 +241,11 @@ async function processWeeklySong(npub, vmResultsPath) {
     let weeklyRespText;
     try {
       weeklyRespText = await withCraigDavid(async (c) => {
-        const res = await c.callTool(actualWeeklyTool, { weeklyInput, pubkey: subjectHex });
+        const res = await c.callTool(
+          actualWeeklyTool,
+          { weeklyInput, pubkey: subjectHex },
+          { onProgress: (p) => console.log(`[Watcher] Weekly progress:`, JSON.stringify(p)) }
+        );
         const text = res?.content?.[0]?.text || JSON.stringify(res);
         return text;
       });
@@ -325,9 +335,14 @@ function checkForNewFiles() {
         }
         
         if (isRecentFile && !processedFiles.has(cacheKey)) {
-          console.log(`[Watcher] Found new vm_results.json for ${npub} (modified ${vmResultsStat.mtime.toISOString()})`);
-          processedFiles.add(cacheKey); // Add to cache immediately to prevent re-triggering
-          setTimeout(() => processWeeklySong(npub, vmResultsPath), PROCESSING_DELAY);
+          if (!scheduledWeekly.has(cacheKey)) {
+            console.log(`[Watcher] Found new vm_results.json for ${npub} (modified ${vmResultsStat.mtime.toISOString()})`);
+            scheduledWeekly.add(cacheKey);
+            setTimeout(() => {
+              scheduledWeekly.delete(cacheKey);
+              processWeeklySong(npub, vmResultsPath);
+            }, PROCESSING_DELAY);
+          }
         }
       }
     }
