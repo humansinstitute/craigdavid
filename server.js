@@ -3,6 +3,7 @@ import express from 'express';
 import path from 'path';
 import { fileURLToPath } from 'url';
 import fs from 'fs';
+import { spawn } from 'child_process';
 
 const app = express();
 const __filename = fileURLToPath(import.meta.url);
@@ -15,6 +16,43 @@ const buildDir = path.join(__dirname, process.env.SPA_BUILD_DIR || 'dist');
 const indexFile = path.join(buildDir, 'index.html');
 
 app.disable('x-powered-by');
+
+// API: access-check using Context VM (spawned in a subprocess to avoid stdio interference)
+app.post('/api/access-check', async (req, res) => {
+  try {
+    const { npub, token, mode } = req.body || {};
+    if (typeof npub !== 'string' || !/^npub1[0-9a-z]+$/.test(npub)) {
+      return res.status(400).json({ error: 'Invalid npub' });
+    }
+    if (typeof token !== 'string' || !token.startsWith('cashu')) {
+      return res.status(400).json({ error: 'Invalid or missing Cashu token (must start with "cashu")' });
+    }
+
+    const script = path.join(__dirname, 'run-access-check.js');
+    const child = spawn(process.execPath, [script, npub, token, mode || 'redeem'], {
+      stdio: ['ignore', 'pipe', 'pipe'],
+      env: process.env,
+    });
+
+    let out = '';
+    let err = '';
+    child.stdout.on('data', (d) => (out += d.toString()));
+    child.stderr.on('data', (d) => (err += d.toString()));
+    child.on('error', (e) => {
+      return res.status(500).json({ error: 'failed to start access check', details: String(e) });
+    });
+    child.on('close', (_code) => {
+      try {
+        const parsed = JSON.parse(out || '{}');
+        return res.json(parsed);
+      } catch (e) {
+        return res.status(502).json({ error: 'invalid access-check output', stdout: out, stderr: err });
+      }
+    });
+  } catch (e) {
+    return res.status(500).json({ error: 'access-check failed' });
+  }
+});
 
 // API: export events by day into output/<npub>/<YYMMDD>-events.json
 app.post('/api/export-events', async (req, res) => {
